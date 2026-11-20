@@ -1,0 +1,2452 @@
+{
+  "tools": [
+    {
+      "name": "guia",
+      "description": "Guías de trabajo QA de SAF (rol, reglas, flujos y el método del plan de pruebas). Sin tema lista las guías.\n\n    Léela al empezar: guia('general'); para un plan de pruebas: guia('plan-pruebas') y sus fases.\n    ",
+      "inputSchema": {
+        "properties": {
+          "tema": {
+            "default": "",
+            "title": "Tema",
+            "type": "string"
+          }
+        },
+        "title": "guiaArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "saf_diagnostico",
+      "description": "Estado general: VPN, credenciales AWS, acceso a EKS y a la BD QA. Úsalo primero.",
+      "inputSchema": {
+        "properties": {},
+        "title": "saf_diagnosticoArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "vpn_status",
+      "description": "Estado de Cloudflare WARP: conexión, registro (organización/usuario) y rutas incluidas.",
+      "inputSchema": {
+        "properties": {},
+        "title": "vpn_statusArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "vpn_connect",
+      "description": "Conecta la VPN (requiere un registro vigente). Si no conecta, usa vpn_reauth_start.",
+      "inputSchema": {
+        "properties": {
+          "wait_s": {
+            "default": 20,
+            "title": "Wait S",
+            "type": "integer"
+          }
+        },
+        "title": "vpn_connectArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "vpn_disconnect",
+      "description": "Desconecta la VPN (el registro se conserva).",
+      "inputSchema": {
+        "properties": {},
+        "title": "vpn_disconnectArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "vpn_reauth_start",
+      "description": "Inicia un nuevo login de Zero Trust (Microsoft) para la VPN.\n\n    Borra el registro anterior, crea uno nuevo para la organización y abre la página de login en el\n    Firefox del escritorio del servidor. Devuelve la URL, el enlace VNC y una captura de pantalla.\n    El usuario solo autentica (QR / número en Microsoft Authenticator desde el celular).\n    ",
+      "inputSchema": {
+        "properties": {
+          "reset_registration": {
+            "default": true,
+            "title": "Reset Registration",
+            "type": "boolean"
+          }
+        },
+        "title": "vpn_reauth_startArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "vpn_reauth_finish",
+      "description": "Termina el registro de la VPN: aplica el token 'com.cloudflare.warp://…' si se da y conecta.",
+      "inputSchema": {
+        "properties": {
+          "token": {
+            "default": "",
+            "title": "Token",
+            "type": "string"
+          },
+          "connect": {
+            "default": true,
+            "title": "Connect",
+            "type": "boolean"
+          }
+        },
+        "title": "vpn_reauth_finishArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "desktop_screenshot",
+      "description": "Captura del escritorio del servidor (donde está el Firefox del login), con enlace descargable.",
+      "inputSchema": {
+        "properties": {},
+        "title": "desktop_screenshotArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "desktop_click",
+      "description": "Clic en el escritorio del servidor (coordenadas de desktop_screenshot).",
+      "inputSchema": {
+        "properties": {
+          "x": {
+            "title": "X",
+            "type": "integer"
+          },
+          "y": {
+            "title": "Y",
+            "type": "integer"
+          },
+          "double": {
+            "default": false,
+            "title": "Double",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "x",
+          "y"
+        ],
+        "title": "desktop_clickArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "desktop_type",
+      "description": "Escribe texto en la ventana activa del escritorio (p. ej. el correo en el login de Microsoft).",
+      "inputSchema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "desktop_typeArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "desktop_key",
+      "description": "Pulsa una tecla en el escritorio: Return, Tab, Escape, ctrl+l, F5…",
+      "inputSchema": {
+        "properties": {
+          "key": {
+            "title": "Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "title": "desktop_keyArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "desktop_open_url",
+      "description": "Abre una URL en el Firefox del escritorio del servidor.",
+      "inputSchema": {
+        "properties": {
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "desktop_open_urlArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "aws_sso_login_start",
+      "description": "Inicia el login AWS SSO por código de dispositivo. Devuelve URL, código y QR para abrir en el celular.\n\n    Después de que el usuario apruebe, llama aws_sso_login_finish.\n    ",
+      "inputSchema": {
+        "properties": {},
+        "title": "aws_sso_login_startArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "aws_sso_login_finish",
+      "description": "Espera a que el usuario apruebe el login SSO y valida las credenciales.",
+      "inputSchema": {
+        "properties": {
+          "wait_s": {
+            "default": 60,
+            "title": "Wait S",
+            "type": "integer"
+          }
+        },
+        "title": "aws_sso_login_finishArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "aws_set_credentials",
+      "description": "Usa credenciales temporales pegadas del portal AWS SSO ('export AWS_ACCESS_KEY_ID=…' etc.).\n\n    Quedan solo en memoria y tienen prioridad sobre el perfil SSO hasta aws_clear_credentials.\n    ",
+      "inputSchema": {
+        "properties": {
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "aws_set_credentialsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "aws_clear_credentials",
+      "description": "Olvida las credenciales pegadas y vuelve al perfil SSO.",
+      "inputSchema": {
+        "properties": {},
+        "title": "aws_clear_credentialsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "k8s_pods",
+      "description": "Lista pods (estado, reinicios, edad). filter: texto en el nombre (p. ej. 'disbursement').",
+      "inputSchema": {
+        "properties": {
+          "filter": {
+            "default": "",
+            "title": "Filter",
+            "type": "string"
+          },
+          "namespace": {
+            "default": "saf-qa",
+            "title": "Namespace",
+            "type": "string"
+          },
+          "only_problems": {
+            "default": false,
+            "title": "Only Problems",
+            "type": "boolean"
+          }
+        },
+        "title": "k8s_podsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "k8s_logs",
+      "description": "Logs de un pod o de un microservicio.\n\n    target: nombre exacto del pod o prefijo del deployment (p. ej. 'ms-disbursement').\n    container: por defecto el de la app (no istio-proxy). since: '15m', '2h'. grep: regex (sin distinguir mayúsculas)\n    para filtrar líneas. previous: logs del contenedor anterior (útil en CrashLoopBackOff). all_pods: todas las réplicas.\n    ",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "namespace": {
+            "default": "saf-qa",
+            "title": "Namespace",
+            "type": "string"
+          },
+          "container": {
+            "default": "",
+            "title": "Container",
+            "type": "string"
+          },
+          "tail": {
+            "default": 200,
+            "title": "Tail",
+            "type": "integer"
+          },
+          "since": {
+            "default": "",
+            "title": "Since",
+            "type": "string"
+          },
+          "grep": {
+            "default": "",
+            "title": "Grep",
+            "type": "string"
+          },
+          "previous": {
+            "default": false,
+            "title": "Previous",
+            "type": "boolean"
+          },
+          "all_pods": {
+            "default": false,
+            "title": "All Pods",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "k8s_logsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "k8s_describe",
+      "description": "Estado detallado de un pod (contenedores, último error/exit code, eventos).",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "namespace": {
+            "default": "saf-qa",
+            "title": "Namespace",
+            "type": "string"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "k8s_describeArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "k8s_events",
+      "description": "Eventos recientes del namespace (Warnings, reinicios, fallos de probes, OOMKilled…).",
+      "inputSchema": {
+        "properties": {
+          "namespace": {
+            "default": "saf-qa",
+            "title": "Namespace",
+            "type": "string"
+          },
+          "filter": {
+            "default": "",
+            "title": "Filter",
+            "type": "string"
+          },
+          "limit": {
+            "default": 60,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "k8s_eventsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "k8s_deployments",
+      "description": "Deployments del namespace con réplicas listas e imagen desplegada.",
+      "inputSchema": {
+        "properties": {
+          "namespace": {
+            "default": "saf-qa",
+            "title": "Namespace",
+            "type": "string"
+          }
+        },
+        "title": "k8s_deploymentsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "host_run",
+      "description": "Ejecuta un comando en el servidor Linux (usuario ubuntu). Último recurso; salida recortada.",
+      "inputSchema": {
+        "properties": {
+          "command": {
+            "title": "Command",
+            "type": "string"
+          },
+          "timeout": {
+            "default": 60.0,
+            "title": "Timeout",
+            "type": "number"
+          }
+        },
+        "required": [
+          "command"
+        ],
+        "title": "host_runArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "plan_pruebas_evidencia",
+      "description": "Paso 1 de la creación del plan de pruebas (sigue el skill plan-pruebas): con el ID de la HU trae la HU de Azure DevOps, el código que se construyó para ella (diffs de sus PRs/commits/ramas, clasificados por capa front/back/bd) y la estructura y datos reales de las tablas de la BD (schsaf) que tocan esos cambios. La BD es opcional: si no responde en unos segundos sigue sin ella y devuelve 'bd.apunte'. Solo devuelve datos; el método de las fases está en el skill. Tarda ~1 min.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID numérico de la HU en Azure DevOps."
+          },
+          "usar_codigo": {
+            "type": "boolean",
+            "description": "Analizar el código fuente de la HU (def. true)."
+          },
+          "usar_bd": {
+            "type": "boolean",
+            "description": "Perfilar las tablas reales de la BD (def. true; si la BD no responde se omite y queda el apunte)."
+          },
+          "tablas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tablas adicionales a perfilar (opcional), p. ej. ['tbl_maintenance_type']."
+          }
+        },
+        "required": [
+          "hu_id"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_interpretar_criterios",
+      "description": "Fase 0 de la creación del plan de pruebas: recibe el JSON con que el agente interpretó los criterios del funcional (siguiendo la referencia fase-0-criterios del skill plan-pruebas), renumera CA-01… de forma continua y devuelve 'criterios_numerados' (markdown con Opciones, ⚠ Interpretación, Resumen y Definición) para las fases 1 a 4.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "interpretacion": {
+            "type": [
+              "object",
+              "string"
+            ],
+            "description": "JSON {groups:[{title, criteria:[{id, text, options, note}], summaries:[{text, covers}]}], definitions:[{term, text}]} o su texto."
+          },
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID de la HU: guarda la lista en Planeacion/criterios.md para que las fases siguientes la lean sin reenviarla."
+          }
+        },
+        "required": [
+          "interpretacion"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_obtener_hu",
+      "description": "Importa una HU de Azure DevOps (título, sprint, célula, descripción y criterios de aceptación limpios).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID numérico de la HU en Azure DevOps."
+          }
+        },
+        "required": [
+          "hu_id"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_preparar_generacion",
+      "description": "Fase 3 de la creación del plan de pruebas: recibe el contexto técnico (fase 1) y la cobertura del juez (fase 2) que escribió el agente, valida las equivalencias de códigos, arma la matriz de cobertura criterio ↔ código y devuelve el prompt final de generación de escenarios. Lo que no se pase se lee de Planeacion/ de la HU (contexto-tecnico.md, juez.md, criterios.md); un valor también puede ser la ruta del archivo. Lo usado queda guardado ahí.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID numérico de la HU en Azure DevOps."
+          },
+          "contexto_tecnico": {
+            "type": "string",
+            "description": "Contexto técnico de la fase 1 (secciones '## ...') o ruta del archivo. Def.: Planeacion/contexto-tecnico.md."
+          },
+          "cobertura_juez": {
+            "type": "string",
+            "description": "Salida del juez de la fase 2 ('## Análisis' y '## Cobertura...') o ruta. Def.: Planeacion/juez.md."
+          },
+          "criterios_numerados": {
+            "type": [
+              "string",
+              "object"
+            ],
+            "description": "Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU."
+          },
+          "tecnica": {
+            "type": "string",
+            "description": "Técnica ISTQB preferida (def. 'Automática'): Partición Equivalente, Análisis de Valor Límite, Tabla de Decisión, Transición de Estados."
+          },
+          "instruccion": {
+            "type": "string",
+            "description": "Instrucción adicional del analista (opcional)."
+          },
+          "apunte_bd": {
+            "type": "string",
+            "description": "Apunte de BD no disponible ('bd.apunte' de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; \"\" para omitirlo."
+          }
+        },
+        "required": [
+          "hu_id"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_leer_codigo",
+      "description": "Lee un archivo del código (solo lectura, con número de línea y secretos enmascarados) en un commit o rama. Se lee del clon local (git, instantáneo) si el repositorio está clonado; si no, de Azure Repos. Usa repositorio/commit de 'referencias_codigo' (o de plan_pruebas_buscar_codigo); sin 'version' lee la rama desplegada en QA (PLAN_PRUEBAS_RAMAS: release/current-qa, release/current o trunk, la primera que exista).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ruta": {
+            "type": "string",
+            "description": "Ruta del archivo, p. ej. /src/main/java/.../Service.java"
+          },
+          "repositorio": {
+            "type": "string",
+            "description": "Nombre del repo, p. ej. NU0139001_SAF_ms_maintenance."
+          },
+          "version": {
+            "type": "string",
+            "description": "SHA del commit o nombre de la rama (vacío = rama desplegada en QA según PLAN_PRUEBAS_RAMAS)."
+          },
+          "tipo_version": {
+            "type": "string",
+            "description": "'commit' (def.) o 'branch'."
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Solo si el repo no está clonado localmente."
+          },
+          "repository_id": {
+            "type": "string",
+            "description": "Solo si el repo no está clonado localmente."
+          },
+          "desde": {
+            "type": "integer",
+            "description": "Línea inicial (opcional)."
+          },
+          "hasta": {
+            "type": "integer",
+            "description": "Línea final (opcional, máx. 400 por lectura)."
+          }
+        },
+        "required": [
+          "ruta"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_buscar_codigo",
+      "description": "Busca términos (hasta 4) en todos los repos del aplicativo (prefijo del nombre, p. ej. 'NU0139001_') en su rama principal: pantalla del front que llama un endpoint, significado de un código, proceso que genera un dato. Usa git grep sobre los clones locales (actualizados con fetch); si no hay clones, la búsqueda de Azure.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "prefijos_repo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "terminos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Solo para buscar en Azure si no hay clones locales."
+          }
+        },
+        "required": [
+          "prefijos_repo",
+          "terminos"
+        ]
+      }
+    },
+    {
+      "name": "plan_pruebas_exportar_matriz",
+      "description": "Genera la matriz de escenarios de prueba en .docx (formato estándar: índice con enlaces y una página por escenario con Precondiciones / Paso a paso / Evidencias / Resultado Esperado) a partir de los casos en JSON {testCases:[{title, preconditions, steps:[{numero_paso, accion}], expectedResults, ...}]}. Con solo hu_id lee Planeacion/casos.json y criterios.md; si se pasan los casos, quedan guardados en casos.json.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "casos": {
+            "type": [
+              "object",
+              "array",
+              "string"
+            ],
+            "description": "JSON de la generación (con testCases), el arreglo testCases, su texto JSON o la ruta del archivo. Def.: Planeacion/casos.json de la HU."
+          },
+          "titulo_hu": {
+            "type": "string",
+            "description": "Título de la HU para el encabezado."
+          },
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID de la HU (se usa en el nombre del archivo y para obtener el título si no se indica)."
+          },
+          "criterios_numerados": {
+            "type": [
+              "string",
+              "object"
+            ],
+            "description": "Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU."
+          },
+          "apunte_bd": {
+            "type": "string",
+            "description": "Apunte de BD no disponible ('bd.apunte' de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; \"\" para omitirlo."
+          },
+          "directorio_salida": {
+            "type": "string",
+            "description": "Carpeta donde guardar el .docx (opcional)."
+          },
+          "incluir_archivo": {
+            "type": "boolean",
+            "description": "Adjunta el .docx (base64) en la respuesta MCP (def. false: basta la ruta 'archivo')."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "browser_navigate",
+      "description": "Navega el navegador a una URL. Arranca el navegador si aún no está abierto.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "La URL a la que navegar."
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_navigate_back",
+      "description": "Vuelve a la página anterior del historial.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_close",
+      "description": "Cierra la página y libera el navegador junto con todos sus recursos.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_snapshot",
+      "description": "Captura el snapshot de accesibilidad de la página actual y asigna una referencia [ref=eN] a cada elemento. Es preferible a una captura de pantalla: es el insumo para click, type, hover, etc.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "Limita el snapshot a un elemento concreto (ref o selector)."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Guarda el snapshot en un archivo en lugar de devolverlo."
+          },
+          "depth": {
+            "type": "integer",
+            "description": "Profundidad máxima del árbol."
+          },
+          "boxes": {
+            "type": "boolean",
+            "description": "Incluye el bounding box [box=x,y,w,h] de cada elemento."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_find",
+      "description": "Busca texto o una expresión regular dentro del snapshot de accesibilidad y devuelve sólo los nodos coincidentes con su ref. Mucho más económico en tokens que capturar el snapshot completo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Texto plano a buscar (coincidencia parcial, sin distinguir mayúsculas)."
+          },
+          "regex": {
+            "type": "string",
+            "description": "Expresión regular. Usa '/patron/i' para no distinguir mayúsculas."
+          },
+          "context": {
+            "type": "integer",
+            "description": "Líneas de contexto alrededor (def. 2)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_click",
+      "description": "Hace clic sobre un elemento de la página.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único."
+          },
+          "doubleClick": {
+            "type": "boolean",
+            "description": "Doble clic en lugar de clic simple."
+          },
+          "button": {
+            "type": "string",
+            "description": "Botón del ratón: left | right | middle. Por defecto left."
+          },
+          "modifiers": {
+            "type": "array",
+            "description": "Teclas modificadoras: Alt, Control, Meta, Shift.",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_hover",
+      "description": "Sitúa el puntero sobre un elemento de la página.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único."
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_type",
+      "description": "Escribe texto dentro de un elemento editable.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único."
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto a escribir en el elemento."
+          },
+          "submit": {
+            "type": "boolean",
+            "description": "Pulsa Enter al terminar."
+          },
+          "slowly": {
+            "type": "boolean",
+            "description": "Escribe carácter a carácter (dispara manejadores de teclado)."
+          }
+        },
+        "required": [
+          "target",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_fill_form",
+      "description": "Rellena varios campos de formulario en una sola llamada. Cada campo indica su tipo: textbox, checkbox, radio, combobox o slider.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "array",
+            "description": "Lista de campos. Cada elemento: {name, target, type, value}. 'type' ∈ textbox|checkbox|radio|combobox|slider.",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "fields"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_select_option",
+      "description": "Selecciona una o varias opciones en un desplegable (<select>).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único."
+          },
+          "values": {
+            "type": "array",
+            "description": "Valores a seleccionar (uno o varios).",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "target",
+          "values"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_press_key",
+      "description": "Pulsa una tecla del teclado, p.ej. 'ArrowLeft', 'Enter' o el carácter 'a'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Nombre de la tecla o carácter a generar."
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_file_upload",
+      "description": "Sube uno o varios archivos al selector de archivos activo. Si se omite 'paths', se cancela el diálogo de selección.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "paths": {
+            "type": "array",
+            "description": "Rutas absolutas de los archivos a subir.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "target": {
+            "type": "string",
+            "description": "Input[type=file] destino (ref o selector). Recomendado."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_handle_dialog",
+      "description": "Acepta o descarta el diálogo pendiente (alert, confirm, prompt o beforeunload).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "accept": {
+            "type": "boolean",
+            "description": "true para aceptar, false para descartar."
+          },
+          "promptText": {
+            "type": "string",
+            "description": "Texto a introducir si el diálogo es de tipo prompt."
+          }
+        },
+        "required": [
+          "accept"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_evaluate",
+      "description": "Evalúa una expresión JavaScript en la página o sobre un elemento. La función debe tener la forma '() => {...}' o '(element) => {...}'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único. Si se indica, se pasa como argumento a la función."
+          },
+          "function": {
+            "type": "string",
+            "description": "Función JS: () => { ... } o (element) => { ... }"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Guarda el resultado en un archivo en lugar de devolverlo."
+          }
+        },
+        "required": [
+          "function"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_wait_for",
+      "description": "Espera a que aparezca un texto, desaparezca un texto o transcurra un tiempo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number",
+            "description": "Segundos a esperar."
+          },
+          "text": {
+            "type": "string",
+            "description": "Texto que debe aparecer en la página."
+          },
+          "textGone": {
+            "type": "string",
+            "description": "Texto que debe desaparecer de la página."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_take_screenshot",
+      "description": "Captura una imagen de la página o de un elemento. Para actuar sobre la página usa browser_snapshot, no la captura.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Descripción legible del elemento (para trazabilidad de la acción)."
+          },
+          "target": {
+            "type": "string",
+            "description": "Referencia exacta del elemento tomada del snapshot (p.ej. 'e12' o 'ref=e12'), o un selector CSS único. Captura sólo ese elemento."
+          },
+          "type": {
+            "type": "string",
+            "description": "Formato: png | jpeg. Por defecto png."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Nombre del archivo destino (relativo al directorio de salida)."
+          },
+          "fullPage": {
+            "type": "boolean",
+            "description": "Captura la página completa con scroll (incompatible con 'target')."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_console_messages",
+      "description": "Devuelve los mensajes de consola capturados en la página.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "string",
+            "description": "Nivel mínimo: error | warning | info | log. Por defecto info."
+          },
+          "all": {
+            "type": "boolean",
+            "description": "Todos los mensajes de la sesión, no sólo desde la última navegación."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Guarda los mensajes en un archivo en lugar de devolverlos."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_network_requests",
+      "description": "Lista numerada de las peticiones de red desde la carga de la página. Usa browser_network_request con el número para ver el detalle.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "static": {
+            "type": "boolean",
+            "description": "Incluye recursos estáticos (imágenes, fuentes, scripts). Def. false."
+          },
+          "filter": {
+            "type": "string",
+            "description": "Sólo peticiones cuya URL case con esta expresión regular."
+          },
+          "filename": {
+            "type": "string",
+            "description": "Guarda el listado en un archivo."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "browser_tabs",
+      "description": "Lista, crea, cierra o selecciona una pestaña del navegador.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "Operación: list | new | close | select."
+          },
+          "index": {
+            "type": "integer",
+            "description": "Índice de pestaña para close/select."
+          },
+          "url": {
+            "type": "string",
+            "description": "URL a abrir cuando action=new."
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_set_auth",
+      "description": "Configura las credenciales de autenticación globales de la sesión o escenario. Se aplican automáticamente a todas las peticiones posteriores de 'api_request'. Soporta bearer, basic, apiKey y oauth2 (con obtención automática del token vía client_credentials si se indica 'tokenUrl'). Los valores admiten {{variables}} de sesión. Usa type='none' para limpiar la autenticación.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "bearer",
+              "basic",
+              "apiKey",
+              "oauth2",
+              "none"
+            ],
+            "description": "Esquema de autenticación a aplicar."
+          },
+          "token": {
+            "type": "string",
+            "description": "Token para 'bearer', 'oauth2' o valor de la clave en 'apiKey'."
+          },
+          "username": {
+            "type": "string",
+            "description": "Usuario para 'basic' o client_id para 'oauth2'."
+          },
+          "password": {
+            "type": "string",
+            "description": "Contraseña para 'basic' o client_secret para 'oauth2'."
+          },
+          "headerName": {
+            "type": "string",
+            "description": "Nombre de la cabecera para 'apiKey' (por defecto X-API-Key)."
+          },
+          "tokenUrl": {
+            "type": "string",
+            "description": "Endpoint de token para 'oauth2'. Si se indica, se solicita el access_token con client_credentials usando username/password como client_id/client_secret."
+          },
+          "scope": {
+            "type": "string",
+            "description": "Scope OAuth2 opcional para la petición de token."
+          },
+          "prefix": {
+            "type": "string",
+            "description": "Prefijo del header Authorization (por defecto 'Bearer')."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_set_variable",
+      "description": "Define o actualiza una variable de entorno/sesión (equivalente a pm.environment.set en Postman). Las variables se interpolan con la sintaxis {{clave}} en url, headers, queryParams y body de las peticiones posteriores. El valor admite cualquier tipo JSON. Usa 'unset': true para eliminarla.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Nombre de la variable."
+          },
+          "value": {
+            "description": "Valor (string, número, booleano, objeto o array)."
+          },
+          "unset": {
+            "type": "boolean",
+            "description": "Si es true elimina la variable en lugar de asignarla."
+          },
+          "secret": {
+            "type": "boolean",
+            "description": "Si es true el valor se enmascara al mostrarlo."
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_request",
+      "description": "Ejecuta una petición HTTP completa controlando método, URL, cabeceras, query params, tipo de cuerpo y adjuntos. Aplica automáticamente la autenticación configurada con 'api_set_auth' e interpola las {{variables}} de sesión. La respuesta queda guardada como 'última respuesta' para 'api_validate_response', 'api_validate_schema' y 'api_extract'. Devuelve statusCode, responseTimeMs, responseHeaders y responseBody.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              "DELETE",
+              "HEAD",
+              "OPTIONS"
+            ],
+            "description": "Método HTTP."
+          },
+          "url": {
+            "type": "string",
+            "description": "URL absoluta o relativa a MCP_API_BASE_URL. Admite {{variables}}."
+          },
+          "headers": {
+            "type": "object",
+            "description": "Cabeceras adicionales (clave/valor)."
+          },
+          "queryParams": {
+            "type": "object",
+            "description": "Parámetros de query string (clave/valor)."
+          },
+          "bodyType": {
+            "type": "string",
+            "enum": [
+              "json",
+              "form-data",
+              "x-www-form-urlencoded",
+              "raw"
+            ],
+            "description": "json | form-data | x-www-form-urlencoded | raw. Si se omite y hay body, se asume 'json'."
+          },
+          "body": {
+            "description": "Cuerpo de la petición: objeto/array para 'json', objeto de campos para los formularios, o string para 'raw'."
+          },
+          "files": {
+            "type": "array",
+            "description": "Adjuntos multipart. Cada elemento: { fieldName, filePath, fileName?, contentType? }. Fuerza bodyType='form-data'.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fieldName": {
+                  "type": "string"
+                },
+                "filePath": {
+                  "type": "string"
+                },
+                "fileName": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fieldName",
+                "filePath"
+              ]
+            }
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre descriptivo del paso (aparece en el informe BDD)."
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "description": "Timeout de esta petición (por defecto MCP_API_TIMEOUT)."
+          },
+          "followRedirects": {
+            "type": "boolean",
+            "description": "Seguir redirecciones 3xx (por defecto según config)."
+          },
+          "verifyTls": {
+            "type": "boolean",
+            "description": "Verificar certificado TLS (por defecto según config)."
+          }
+        },
+        "required": [
+          "method",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_validate_response",
+      "description": "Motor de aserciones estilo Serenity REST sobre la última respuesta: código de estado, SLA de tiempo de respuesta, presencia de campos obligatorios y aserciones de valor por JSONPath. Devuelve el detalle de cada aserción (passed/failed) y el veredicto global. Operadores: equals, notEquals, contains, notContains, notNull, isNull, greaterThan, lessThan, greaterOrEqual, lessOrEqual, matches, in, type, length, empty, notEmpty.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "expectedStatus": {
+            "type": "integer",
+            "description": "Código HTTP esperado (p. ej. 200, 201, 404)."
+          },
+          "maxResponseTimeMs": {
+            "type": "integer",
+            "description": "SLA: tiempo máximo de respuesta admisible en ms."
+          },
+          "requiredFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Campos que deben existir y no ser null. Acepta JSONPath ($.data.id) o ruta con puntos (data.id)."
+          },
+          "valueAssertions": {
+            "type": "array",
+            "description": "Aserciones de valor: { jsonPath, operator, expected, description? }.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "jsonPath": {
+                  "type": "string"
+                },
+                "operator": {
+                  "type": "string",
+                  "enum": [
+                    "equals",
+                    "notEquals",
+                    "contains",
+                    "notContains",
+                    "notNull",
+                    "isNull",
+                    "greaterThan",
+                    "lessThan",
+                    "greaterOrEqual",
+                    "lessOrEqual",
+                    "matches",
+                    "in",
+                    "type",
+                    "length",
+                    "empty",
+                    "notEmpty"
+                  ]
+                },
+                "expected": {},
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "jsonPath",
+                "operator"
+              ]
+            }
+          },
+          "expectedHeaders": {
+            "type": "object",
+            "description": "Cabeceras esperadas en la respuesta. Valor '*' = basta con que exista."
+          },
+          "bodyContains": {
+            "type": "string",
+            "description": "Subcadena que debe aparecer en el cuerpo crudo."
+          },
+          "requestIndex": {
+            "type": "integer",
+            "description": "Validar una petición concreta del historial en lugar de la última (1 = la primera)."
+          },
+          "failFast": {
+            "type": "boolean",
+            "description": "Si es true, lanza error en la primera aserción fallida."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_validate_schema",
+      "description": "Valida el contrato estructural de la última respuesta HTTP frente a un JSON Schema (Draft-07). El esquema puede pasarse como objeto, como string JSON o mediante 'schemaPath' apuntando a un archivo .json del workspace. Devuelve la lista completa de incumplimientos con la ruta exacta de cada uno, no sólo el primero.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "schema": {
+            "description": "JSON Schema como objeto o como string JSON."
+          },
+          "schemaPath": {
+            "type": "string",
+            "description": "Alternativa a 'schema': ruta a un archivo .json con el esquema."
+          },
+          "jsonPath": {
+            "type": "string",
+            "description": "Validar sólo una parte de la respuesta (p. ej. '$.data'). Por defecto se valida el cuerpo completo."
+          },
+          "requestIndex": {
+            "type": "integer",
+            "description": "Validar una petición concreta del historial."
+          },
+          "failFast": {
+            "type": "boolean",
+            "description": "Si es true, lanza error cuando el esquema no se cumple."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_extract",
+      "description": "Extrae un valor de la respuesta previa mediante JSONPath o expresión regular y lo guarda como variable de sesión, lista para encadenar en la siguiente petición como {{variable}}. Sin 'variableName' sólo devuelve el valor sin guardarlo. Puede extraer también de una cabecera con 'header'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "jsonPath": {
+            "type": "string",
+            "description": "Expresión JSONPath, p. ej. '$.data.token' o 'data.items[0].id'."
+          },
+          "variableName": {
+            "type": "string",
+            "description": "Nombre de la variable de sesión donde guardar el valor."
+          },
+          "regex": {
+            "type": "string",
+            "description": "Alternativa a jsonPath: expresión regular sobre el cuerpo crudo. Si tiene grupo de captura se usa el grupo 1."
+          },
+          "header": {
+            "type": "string",
+            "description": "Alternativa: extraer el valor de una cabecera de respuesta."
+          },
+          "all": {
+            "type": "boolean",
+            "description": "Devolver todas las coincidencias como array en lugar de la primera."
+          },
+          "defaultValue": {
+            "description": "Valor a usar si no hay coincidencias (evita el error)."
+          },
+          "requestIndex": {
+            "type": "integer",
+            "description": "Extraer de una petición concreta del historial."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_run_postman",
+      "description": "Ejecuta una colección de Postman (.json, Collection v2.1) y devuelve el consolidado de aserciones. Si el binario 'newman' está instalado se usa como runner (soporte completo de scripts). Si no lo está pero hay Node, se usa un runner nativo que ejecuta las peticiones y evalúa los scripts pre-request/test con un shim de 'pm'. Sin Node, ejecuta las peticiones y aplica la aserción implícita de estado 2xx. El campo 'runner' indica siempre el modo real utilizado.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "collectionPath": {
+            "type": "string",
+            "description": "Ruta al archivo .json de la colección."
+          },
+          "environmentPath": {
+            "type": "string",
+            "description": "Ruta opcional al environment .json de Postman."
+          },
+          "iterationData": {
+            "type": "string",
+            "description": "Ruta opcional a datos de iteración (.json o .csv)."
+          },
+          "runner": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "newman",
+              "native"
+            ],
+            "description": "Forzar runner concreto. Por defecto 'auto'."
+          },
+          "folder": {
+            "type": "string",
+            "description": "Ejecutar sólo la carpeta indicada de la colección."
+          },
+          "bail": {
+            "type": "boolean",
+            "description": "Detener la ejecución en el primer fallo."
+          },
+          "delayMs": {
+            "type": "integer",
+            "description": "Pausa en ms entre peticiones."
+          },
+          "timeoutSeconds": {
+            "type": "integer",
+            "description": "Timeout global de la ejecución."
+          }
+        },
+        "required": [
+          "collectionPath"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_report",
+      "description": "Compila el historial de peticiones, tiempos y SLA, validaciones de esquema y aserciones de la sesión en un informe ejecutivo en Markdown con formato BDD (Given/When/Then). Devuelve el Markdown y, si se indica 'outputPath', también lo guarda en disco.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "suiteName": {
+            "type": "string",
+            "description": "Nombre de la suite de pruebas para la cabecera del informe."
+          },
+          "includeResponseBody": {
+            "type": "boolean",
+            "description": "Incluir el cuerpo de las respuestas en el detalle de cada escenario."
+          },
+          "environment": {
+            "type": "string",
+            "description": "Entorno ejecutado (dev, qa, staging, prod…)."
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Ruta donde guardar el .md. Si se omite sólo se devuelve el texto."
+          },
+          "maxBodyChars": {
+            "type": "integer",
+            "description": "Límite de caracteres por cuerpo incluido (por defecto 2000)."
+          },
+          "reset": {
+            "type": "boolean",
+            "description": "Vaciar el historial de la sesión tras generar el informe."
+          }
+        },
+        "required": [
+          "suiteName"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "api_session",
+      "description": "Devuelve el estado actual de la sesión de API testing: variables definidas, autenticación (enmascarada), estadísticas y resumen del historial de peticiones. Útil para depurar por qué una {{variable}} no se resuelve o qué respuesta está activa. Con 'reset': true limpia la sesión.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "reset": {
+            "type": "boolean",
+            "description": "Limpiar historial, aserciones y (según flags) variables/auth."
+          },
+          "keepVariables": {
+            "type": "boolean",
+            "description": "Al resetear, conservar las variables de sesión."
+          },
+          "keepAuth": {
+            "type": "boolean",
+            "description": "Al resetear, conservar la autenticación configurada."
+          },
+          "includeHistory": {
+            "type": "boolean",
+            "description": "Incluir el resumen de cada petición del historial."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "pg_list_schemas",
+      "description": "[postgres-mcp] List all schemas in the database",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "pg_list_objects",
+      "description": "[postgres-mcp] List objects (tables, views, sequences, extensions) in a schema",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "schema_name": {
+            "type": "string",
+            "description": "Schema name"
+          },
+          "object_type": {
+            "type": "string",
+            "description": "Object type: table|view|sequence|extension (def. table)"
+          }
+        },
+        "required": [
+          "schema_name"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "pg_get_object_details",
+      "description": "[postgres-mcp] Show details (columns, constraints, indexes) of a database object",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "schema_name": {
+            "type": "string"
+          },
+          "object_name": {
+            "type": "string"
+          },
+          "object_type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "schema_name",
+          "object_name"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "pg_execute_sql",
+      "description": "[postgres-mcp] Execute a SQL statement (read-only in restricted mode)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sql": {
+            "type": "string",
+            "description": "SQL to execute"
+          }
+        },
+        "required": [
+          "sql"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "pg_explain_query",
+      "description": "[postgres-mcp] Explain the execution plan for a SQL query (with optional hypothetical indexes)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sql": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sql"
+        ],
+        "additionalProperties": true
+      }
+    },
+    {
+      "name": "ejecucion_iniciar",
+      "description": "Crea una ejecución del plan de pruebas de una HU. Recibe los escenarios (mismo formato de casos que plan_pruebas_exportar_matriz: title, steps, expectedResults, preconditions) y los DATOS DE PRUEBA que controlan la ejecución (cliente, obligación, radicado...). Devuelve el ejecucion_id para registrar evidencias.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "datos_prueba": {
+            "type": "object",
+            "description": "Datos de prueba controlados, p. ej. {\"cliente_id\": \"8001234\", \"obligacion\": \"1234567\"}. Las escrituras en BD solo se permiten sobre estos valores. Opcional si el plan trae 'datos' por escenario (se registran con ejecucion_preparar_datos)."
+          },
+          "hu_id": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "ID de la HU en Azure DevOps (toma su título)."
+          },
+          "titulo_hu": {
+            "type": "string",
+            "description": "Título de la HU (si no se da hu_id)."
+          },
+          "casos": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Escenarios a ejecutar. Si se omite y hay hu_id, se cargan del plan exportado (<workspace>/<nombre HU>/<id>.json)."
+          },
+          "ambiente": {
+            "type": "string",
+            "description": "Ambiente (def. QA)."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "ejecucion_estado",
+      "description": "Muestra escenarios, pasos, evidencias registradas y datos de prueba de una ejecución.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          }
+        },
+        "required": [
+          "ejecucion_id"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_actualizar_escenario",
+      "description": "Marca el resultado de un escenario (Exitoso, Fallido, Bloqueado, No ejecutado) con su observación, o ajusta título/pasos/resultado esperado. Con escenario=0 crea un escenario nuevo.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario; 0 para crear uno nuevo."
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "pasos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lista completa de pasos."
+          },
+          "resultado_esperado": {
+            "type": "string"
+          },
+          "precondiciones": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string",
+            "description": "Exitoso | Fallido | Bloqueado | No ejecutado."
+          },
+          "observacion": {
+            "type": "string",
+            "description": "Resultado obtenido / hallazgo."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_registrar_dato_prueba",
+      "description": "Agrega un dato de prueba controlado a la ejecución (p. ej. el id generado por un INSERT) para poder usarlo en escrituras posteriores.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "valor": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "nombre",
+          "valor"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_eliminar_evidencia",
+      "description": "Quita una evidencia (EV###) del reporte, p. ej. para repetir una captura.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "evidencia_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "evidencia_id"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_preparar_datos",
+      "description": "Resuelve los 'datos' que el plan dejó para un escenario: ejecuta la consulta 'buscar' de cada registro (A, B…), toma un candidato que no use otro escenario, lo guarda como evidencia y como dato de prueba, y devuelve la 'consultaControl' con los valores sustituidos. Si no hay candidato devuelve la receta 'crear'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Paso donde quedan las evidencias (def. 1, el de preparación)."
+          },
+          "elegir": {
+            "type": "object",
+            "description": "Fila a tomar por etiqueta (0 = primera), p. ej. {\"A\": 2}."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_verificar_control",
+      "description": "Ejecuta la 'consultaControl' del plan para el escenario, con los registros elegidos en ejecucion_preparar_datos ya sustituidos, y la deja como evidencia del paso indicado.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "etiqueta": {
+            "type": "string"
+          },
+          "explicacion": {
+            "type": "string"
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve también la imagen generada en la respuesta."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_bd_consultar",
+      "description": "Ejecuta un SELECT/WITH de solo lectura en la BD (schsaf) y guarda la evidencia como imagen en formato tabla (SQL en la cabecera + resultado, estilo export HTML de DBeaver). Devuelve las filas.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "sql": {
+            "type": "string",
+            "description": "SELECT o WITH (una sola sentencia)."
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          },
+          "max_filas": {
+            "type": "integer",
+            "description": "Filas a mostrar (def. 50, máx. 500)."
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve también la imagen generada en la respuesta."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "sql",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_bd_modificar",
+      "description": "Escritura CONTROLADA en la BD (schsaf): una sola sentencia INSERT/UPDATE/DELETE que DEBE contener el dato de prueba (en el WHERE para UPDATE/DELETE, en los valores para INSERT) registrado en la ejecución. Cuenta las filas afectadas dentro de la transacción y hace ROLLBACK si superan max_filas. modo='simular' (def.) ejecuta y hace ROLLBACK para revisar el impacto; modo='ejecutar' hace COMMIT y genera las evidencias (antes, filas afectadas con RETURNING y verificación opcional). Todo queda auditado.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "sql": {
+            "type": "string",
+            "description": "INSERT, UPDATE o DELETE (una sola sentencia)."
+          },
+          "dato_prueba": {
+            "type": "string",
+            "description": "Valor (o nombre) del dato de prueba que controla la escritura."
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          },
+          "modo": {
+            "type": "string",
+            "description": "simular (ROLLBACK, def.) | ejecutar (COMMIT)."
+          },
+          "max_filas": {
+            "type": "integer",
+            "description": "Máximo de filas afectadas (def. 1, tope 50)."
+          },
+          "sql_verificacion": {
+            "type": "string",
+            "description": "SELECT opcional que se ejecuta tras el COMMIT como evidencia."
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve también la imagen generada en la respuesta."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "sql",
+          "dato_prueba",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_api_ejecutar",
+      "description": "Envía una petición HTTP (reutiliza api_request y la sesión de API: variables {{...}}, auth) agregando la cabecera del API de pruebas (Content-type, Authorization: API Key, api-key). Guarda la evidencia como imagen de consola con el curl, el status y la respuesta. Devuelve status y body para validar.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "method": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          },
+          "headers": {
+            "type": "object",
+            "description": "Cabeceras extra (sobrescriben las por defecto)."
+          },
+          "queryParams": {
+            "type": "object"
+          },
+          "body": {
+            "description": "Body (objeto JSON, campos de formulario o texto)."
+          },
+          "bodyType": {
+            "type": "string",
+            "description": "json | form-data | x-www-form-urlencoded | raw."
+          },
+          "usar_cabecera_api": {
+            "type": "boolean",
+            "description": "Agrega la cabecera api-key configurada (def. true)."
+          },
+          "mostrar_secretos": {
+            "type": "boolean",
+            "description": "Muestra la api-key sin enmascarar en la imagen (def. false)."
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve también la imagen generada en la respuesta."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "method",
+          "url",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_api_evidencia",
+      "description": "Genera la imagen de consola (curl + respuesta) de una petición del historial de la sesión de API (la última por defecto), p. ej. tras api_request o api_run_postman.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          },
+          "indice_historial": {
+            "type": "integer",
+            "description": "Índice de la petición en el historial (def. la última)."
+          },
+          "mostrar_secretos": {
+            "type": "boolean"
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve también la imagen generada en la respuesta."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_navegador_login",
+      "description": "Abre la URL de la aplicación en el navegador visible y espera a que el usuario complete el login de Microsoft (Entra ID / MFA). Con MCP_BROWSER_USER_DATA_DIR el perfil es persistente y el login se conserva entre reinicios. Si devuelve 'esperando_login', pide al usuario terminar el login y vuelve a llamarla.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL de la aplicación a probar."
+          },
+          "esperar_segundos": {
+            "type": "integer",
+            "description": "Espera máxima por llamada (def. 120)."
+          },
+          "texto_exito": {
+            "type": "string",
+            "description": "Texto visible que confirma que la app cargó (opcional)."
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_navegador_captura",
+      "description": "Toma la captura de la pantalla actual del navegador (sesión de las tools browser_*) como evidencia del paso, resaltando en rojo los elementos indicados (refs del snapshot o selectores).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          },
+          "resaltar": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Elementos a recuadrar en rojo: refs (e12) o selectores CSS/text=."
+          },
+          "pagina_completa": {
+            "type": "boolean",
+            "description": "Captura toda la página con scroll (def. false)."
+          },
+          "devolver_imagen": {
+            "type": "boolean",
+            "description": "Devuelve la captura en la respuesta (def. true)."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_agregar_evidencia",
+      "description": "Agrega como evidencia una imagen PNG/JPEG existente (p. ej. de browser_take_screenshot).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "escenario": {
+            "type": "integer",
+            "description": "Número del escenario (1..N)."
+          },
+          "paso": {
+            "type": [
+              "integer",
+              "string"
+            ],
+            "description": "Número del paso (1..N) o su descripción; un texto nuevo agrega el paso."
+          },
+          "archivo": {
+            "type": "string",
+            "description": "Ruta de la imagen."
+          },
+          "etiqueta": {
+            "type": "string",
+            "description": "Título corto que aparece sobre la imagen en el reporte."
+          },
+          "explicacion": {
+            "type": "string",
+            "description": "Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen)."
+          }
+        },
+        "required": [
+          "ejecucion_id",
+          "escenario",
+          "paso",
+          "archivo",
+          "etiqueta",
+          "explicacion"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_finalizar",
+      "description": "Genera el reporte 'Ejecución - <HU>' en .docx (formato de la plantilla: índice con enlaces, tabla Paso a paso / Evidencias, cada imagen con su etiqueta y explicación, resultado esperado y obtenido) y en .pdf. Devuelve las URLs de descarga y adjunta los archivos.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "formato": {
+            "type": "string",
+            "description": "docx | pdf | ambos (def.)."
+          },
+          "incluir_archivo": {
+            "type": "boolean",
+            "description": "Adjunta los archivos en base64 (def. false: basta la ruta del archivo)."
+          }
+        },
+        "required": [
+          "ejecucion_id"
+        ]
+      }
+    },
+    {
+      "name": "ejecucion_bugs",
+      "description": "Genera 'Bugs - <HU>' (.docx y .pdf, misma plantilla del reporte) en la carpeta de la ejecución. Cada bug: título, severidad, escenario(s), datos, pasos para reproducir con las evidencias EV de la ejecución (imágenes incrustadas), resultado esperado (criterio) y resultado obtenido. Valida que cada EV exista. Guarda los bugs en bugs.json; llamarla sin 'bugs' regenera el reporte desde ese archivo. Usa tipo='observacion' para dudas al funcional (OBS-NN) que no son bugs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ejecucion_id": {
+            "type": "string",
+            "description": "ID devuelto por ejecucion_iniciar."
+          },
+          "bugs": {
+            "type": "array",
+            "description": "[{titulo, severidad (Alta|Media|Baja), escenarios ('4 y 8'), datos (NIT, CxC...), pasos: [{descripcion, evidencias: ['EV042','EV043']}], resultado_esperado, resultado_obtenido, tipo? ('bug'|'observacion')}]",
+            "items": {
+              "type": "object"
+            }
+          },
+          "formato": {
+            "type": "string",
+            "description": "docx | pdf | ambos (def.)."
+          }
+        },
+        "required": [
+          "ejecucion_id"
+        ]
+      }
+    },
+    {
+      "name": "saf_buscar_pantalla",
+      "description": "Busca en el CÓDIGO del front de SAF las pantallas que corresponden a un texto (funcionalidad, menú, etiqueta de campo o botón). Devuelve la ruta (URL relativa), el menú y los parámetros de la ruta.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "texto": {
+            "type": "string",
+            "description": "p. ej. 'aplicar ajuste mantenimiento', 'tasa de cambio'."
+          }
+        },
+        "required": [
+          "texto"
+        ]
+      }
+    },
+    {
+      "name": "saf_pantalla",
+      "description": "Mapa de una pantalla de SAF sacado del código fuente: componentes (con archivos .ts/.html y la API que cargan al abrir), campos (tipo de widget, etiqueta, formControlName/componentId/id/data-testid, localizador recomendado, opciones de radios, si es condicional o se repite por fila), botones y modales (texto, método y la API que llaman: método, ruta y microservicio), tablas (columnas) y títulos. Úsalo ANTES de interactuar.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ruta": {
+            "type": "string",
+            "description": "Ruta (p. ej. 'ajustes-obligaciones/aplicar-ajuste') o clase del componente."
+          },
+          "incluir_condicionales": {
+            "type": "boolean",
+            "description": "Incluye elementos con *ngIf/@if (def. true)."
+          }
+        },
+        "required": [
+          "ruta"
+        ]
+      }
+    },
+    {
+      "name": "saf_ir",
+      "description": "Abre una pantalla de SAF (https://saf-qa.apps.ambientesbc.com/) por su ruta, espera a que terminen los loaders del Design System y devuelve el estado de la pantalla. Si Microsoft pide login devuelve 'requiere_login'. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref 'sN' (selector [data-saf-ref=\"sN\"], útil en browser_* y en ejecucion_navegador_captura.resaltar).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "ruta": {
+            "type": "string",
+            "description": "Ruta relativa (de saf_buscar_pantalla) o URL completa."
+          },
+          "esperar_segundos": {
+            "type": "integer",
+            "description": "Espera máxima de carga (def. 30)."
+          },
+          "limpio": {
+            "type": "boolean",
+            "description": "Recarga la app para que el formulario arranque vacío (el store conserva valores de escenarios anteriores). Úsalo al iniciar cada escenario. Def. false."
+          }
+        },
+        "required": [
+          "ruta"
+        ]
+      }
+    },
+    {
+      "name": "saf_estado",
+      "description": "Snapshot pensado para SAF: campos visibles con etiqueta, tipo (select, fecha, texto...), valor actual y errores de validación; botones (y si están deshabilitados); modal activo con sus botones; alertas/toasts; tablas con columnas y primeras filas; y si hay un loader activo. Reemplaza a browser_snapshot en SAF. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref 'sN' (selector [data-saf-ref=\"sN\"], útil en browser_* y en ejecucion_navegador_captura.resaltar).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "solo_modal": {
+            "type": "boolean",
+            "description": "Solo el contenido del modal activo."
+          },
+          "max_filas": {
+            "type": "integer",
+            "description": "Filas por tabla (def. 5)."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "saf_llenar",
+      "description": "Llena varios campos de un formulario de SAF manejando cada widget del Design System: bc-input-select (abre la lista y elige la opción por texto; lista de valores si es múltiple), bc-input-date (AAAA-MM-DD o DD/MM/AAAA), autocompletar, texto, checkbox/switch, radio y archivos. Identifica cada campo por formControlName, componentId, id, data-testid, etiqueta visible, encabezado de columna o ref. En autocompletar elige la sugerencia exacta (el valor como primer token) y falla si ninguna coincide. Verifica cada campo: si el valor que quedó no es el pedido (máscara, reseteo) o Angular lo marca inválido, reintenta una vez y lo informa en 'avisos'. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref 'sN' (selector [data-saf-ref=\"sN\"], útil en browser_* y en ejecucion_navegador_captura.resaltar).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "campos": {
+            "type": "object",
+            "description": "{clave: valor}, p. ej. {\"categoryMaintenance\": \"Comisiones\", \"Fecha mantenimiento\": \"2026-10-30\"}."
+          },
+          "fila": {
+            "type": "string",
+            "description": "Texto de la fila (p. ej. el Id '354752') para campos repetidos por fila en tablas o pop-ups; la clave puede ser el encabezado de la columna (p. ej. {\"Valor\": \"100000\"})."
+          }
+        },
+        "required": [
+          "campos"
+        ]
+      }
+    },
+    {
+      "name": "saf_click",
+      "description": "Hace clic en un botón, enlace, pestaña u opción por texto visible, id, data-testid o ref (prioriza el modal abierto), espera los loaders y devuelve el nuevo estado (navegación, modal, alertas). En 'api' compara las llamadas que hizo el navegador con las que el código del front dice que dispara ese botón (método, ruta, status): úsalo como verificación del paso. En 'verificacion' dice si ocurrió la navegación que indica el código o si el clic no tuvo efecto ('aviso' + camposInvalidos): con aviso, el paso NO está hecho. Si el objetivo es un campo select (ref, formControlName o etiqueta), lo despliega y devuelve sus opciones (para capturar la lista como evidencia). Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref 'sN' (selector [data-saf-ref=\"sN\"], útil en browser_* y en ejecucion_navegador_captura.resaltar).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objetivo": {
+            "type": "string",
+            "description": "Texto del botón (p. ej. 'Continuar'), id, data-testid, ref sN o un campo select a desplegar."
+          },
+          "en_modal": {
+            "type": "boolean",
+            "description": "Buscar solo dentro del modal activo."
+          },
+          "esperar_segundos": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "objetivo"
+        ]
+      }
+    },
+    {
+      "name": "saf_modal",
+      "description": "Lee el modal activo (título, texto, campos, botones) y, si se indica 'boton', lo pulsa.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "boton": {
+            "type": "string",
+            "description": "Texto del botón a pulsar (p. ej. 'Confirmar'). Vacío = solo leer."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "saf_tabla",
+      "description": "Lee una tabla visible (columnas y filas) y opcionalmente opera sobre la fila que contenga un texto: accion='seleccionar' | 'desmarcar' marca o desmarca su casilla (y lo verifica); la fila se busca primero por celda exacta; otra acción hace clic en ese botón/ícono de la fila o en esa opción de su menú desplegable (bc-table-dropdown).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "tabla": {
+            "type": "string",
+            "description": "id, ref o texto de una columna para elegir la tabla."
+          },
+          "fila": {
+            "type": "string",
+            "description": "Texto que identifica la fila (p. ej. el número de obligación)."
+          },
+          "accion": {
+            "type": "string",
+            "description": "seleccionar | texto de la acción (p. ej. 'Ver detalle')."
+          },
+          "indice": {
+            "type": "integer",
+            "description": "Índice de la tabla visible si no se da 'tabla' (def. 0)."
+          },
+          "max_filas": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "saf_inspeccionar",
+      "description": "Devuelve el HTML real (outerHTML) y los ancestros de un elemento por ref, selector, clave de campo o texto de botón, para resolver widgets que las otras tools no manejen.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "objetivo": {
+            "type": "string"
+          },
+          "max_caracteres": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "objetivo"
+        ]
+      }
+    },
+    {
+      "name": "saf_reindexar",
+      "description": "Reconstruye el índice de rutas y componentes desde el repositorio del front (se hace solo cuando cambia el commit; úsalo tras un git pull).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "credenciales_definir",
+      "description": "Entrega al servidor las credenciales. Por defecto solo en memoria (se pierden al reiniciar); con guardar=true quedan en el .env del servidor y no hay que volver a darlas. Antes de pedirlas al usuario mira credenciales_estado: si ya están definidas no las pidas. Llámala al conectarte, antes de usar plan_pruebas_* / saf_* (azure_devops_pat), pg_* / ejecucion_bd_* (database_uri, postgresql://usuario:clave@host:5432/BD?options=-csearch_path%3Dschsaf,public) o ejecucion_api_* (ejecucion_api_key). Solo se cambian los campos que envíes; '-' borra uno.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "azure_devops_pat": {
+            "type": "string",
+            "description": "Personal Access Token de Azure DevOps (lectura de código y work items)."
+          },
+          "database_uri": {
+            "type": "string",
+            "description": "URI postgresql:// de la BD QA de SAF."
+          },
+          "ejecucion_api_key": {
+            "type": "string",
+            "description": "API key de los microservicios SAF para ejecucion_api_*."
+          },
+          "guardar": {
+            "type": "boolean",
+            "description": "true: además las guarda en el .env del servidor (persisten tras reinicios). Por defecto solo memoria."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "credenciales_estado",
+      "description": "Qué credenciales tiene el servidor en memoria (sin mostrar su valor).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "credenciales_olvidar",
+      "description": "Borra todas las credenciales, de memoria y del .env del servidor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    }
+  ]
+}
