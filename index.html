@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de tools — MCP saf-qa</title>
+<meta name="description" content="Catálogo público de las herramientas del MCP saf-qa: nombre, descripción y parámetros de cada tool.">
+<style>body{font-family:system-ui,sans-serif;max-width:900px;margin:2em auto;padding:0 1em;color:#222}h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.6em;border-bottom:1px solid #ddd;padding-bottom:.2em}code{background:#f4f4f4;padding:.1em .3em;border-radius:3px}pre{background:#f4f4f4;padding:.8em;border-radius:6px;overflow-x:auto;font-size:.85em}table{border-collapse:collapse;font-size:.9em}td,th{border:1px solid #ddd;padding:.3em .6em;text-align:left}.meta{color:#666;font-size:.9em}</style>
+</head>
+<body>
+<h1>Catálogo de tools — MCP saf-qa</h1>
+<p class="meta">Catálogo público de las herramientas del servidor MCP saf-qa. Solo describe las tools: nombres, descripciones y parámetros. No contiene credenciales ni ejecuta nada. Generado el 2026-11-20 04:06 UTC. 91 tools.</p>
+<h2>Índice</h2>
+<ul>
+<li><a href="#guia">guia</a></li>
+<li><a href="#saf_diagnostico">saf_diagnostico</a></li>
+<li><a href="#vpn_status">vpn_status</a></li>
+<li><a href="#vpn_connect">vpn_connect</a></li>
+<li><a href="#vpn_disconnect">vpn_disconnect</a></li>
+<li><a href="#vpn_reauth_start">vpn_reauth_start</a></li>
+<li><a href="#vpn_reauth_finish">vpn_reauth_finish</a></li>
+<li><a href="#desktop_screenshot">desktop_screenshot</a></li>
+<li><a href="#desktop_click">desktop_click</a></li>
+<li><a href="#desktop_type">desktop_type</a></li>
+<li><a href="#desktop_key">desktop_key</a></li>
+<li><a href="#desktop_open_url">desktop_open_url</a></li>
+<li><a href="#aws_sso_login_start">aws_sso_login_start</a></li>
+<li><a href="#aws_sso_login_finish">aws_sso_login_finish</a></li>
+<li><a href="#aws_set_credentials">aws_set_credentials</a></li>
+<li><a href="#aws_clear_credentials">aws_clear_credentials</a></li>
+<li><a href="#k8s_pods">k8s_pods</a></li>
+<li><a href="#k8s_logs">k8s_logs</a></li>
+<li><a href="#k8s_describe">k8s_describe</a></li>
+<li><a href="#k8s_events">k8s_events</a></li>
+<li><a href="#k8s_deployments">k8s_deployments</a></li>
+<li><a href="#host_run">host_run</a></li>
+<li><a href="#plan_pruebas_evidencia">plan_pruebas_evidencia</a></li>
+<li><a href="#plan_pruebas_interpretar_criterios">plan_pruebas_interpretar_criterios</a></li>
+<li><a href="#plan_pruebas_obtener_hu">plan_pruebas_obtener_hu</a></li>
+<li><a href="#plan_pruebas_preparar_generacion">plan_pruebas_preparar_generacion</a></li>
+<li><a href="#plan_pruebas_leer_codigo">plan_pruebas_leer_codigo</a></li>
+<li><a href="#plan_pruebas_buscar_codigo">plan_pruebas_buscar_codigo</a></li>
+<li><a href="#plan_pruebas_exportar_matriz">plan_pruebas_exportar_matriz</a></li>
+<li><a href="#browser_navigate">browser_navigate</a></li>
+<li><a href="#browser_navigate_back">browser_navigate_back</a></li>
+<li><a href="#browser_close">browser_close</a></li>
+<li><a href="#browser_snapshot">browser_snapshot</a></li>
+<li><a href="#browser_find">browser_find</a></li>
+<li><a href="#browser_click">browser_click</a></li>
+<li><a href="#browser_hover">browser_hover</a></li>
+<li><a href="#browser_type">browser_type</a></li>
+<li><a href="#browser_fill_form">browser_fill_form</a></li>
+<li><a href="#browser_select_option">browser_select_option</a></li>
+<li><a href="#browser_press_key">browser_press_key</a></li>
+<li><a href="#browser_file_upload">browser_file_upload</a></li>
+<li><a href="#browser_handle_dialog">browser_handle_dialog</a></li>
+<li><a href="#browser_evaluate">browser_evaluate</a></li>
+<li><a href="#browser_wait_for">browser_wait_for</a></li>
+<li><a href="#browser_take_screenshot">browser_take_screenshot</a></li>
+<li><a href="#browser_console_messages">browser_console_messages</a></li>
+<li><a href="#browser_network_requests">browser_network_requests</a></li>
+<li><a href="#browser_tabs">browser_tabs</a></li>
+<li><a href="#api_set_auth">api_set_auth</a></li>
+<li><a href="#api_set_variable">api_set_variable</a></li>
+<li><a href="#api_request">api_request</a></li>
+<li><a href="#api_validate_response">api_validate_response</a></li>
+<li><a href="#api_validate_schema">api_validate_schema</a></li>
+<li><a href="#api_extract">api_extract</a></li>
+<li><a href="#api_run_postman">api_run_postman</a></li>
+<li><a href="#api_report">api_report</a></li>
+<li><a href="#api_session">api_session</a></li>
+<li><a href="#pg_list_schemas">pg_list_schemas</a></li>
+<li><a href="#pg_list_objects">pg_list_objects</a></li>
+<li><a href="#pg_get_object_details">pg_get_object_details</a></li>
+<li><a href="#pg_execute_sql">pg_execute_sql</a></li>
+<li><a href="#pg_explain_query">pg_explain_query</a></li>
+<li><a href="#ejecucion_iniciar">ejecucion_iniciar</a></li>
+<li><a href="#ejecucion_estado">ejecucion_estado</a></li>
+<li><a href="#ejecucion_actualizar_escenario">ejecucion_actualizar_escenario</a></li>
+<li><a href="#ejecucion_registrar_dato_prueba">ejecucion_registrar_dato_prueba</a></li>
+<li><a href="#ejecucion_eliminar_evidencia">ejecucion_eliminar_evidencia</a></li>
+<li><a href="#ejecucion_preparar_datos">ejecucion_preparar_datos</a></li>
+<li><a href="#ejecucion_verificar_control">ejecucion_verificar_control</a></li>
+<li><a href="#ejecucion_bd_consultar">ejecucion_bd_consultar</a></li>
+<li><a href="#ejecucion_bd_modificar">ejecucion_bd_modificar</a></li>
+<li><a href="#ejecucion_api_ejecutar">ejecucion_api_ejecutar</a></li>
+<li><a href="#ejecucion_api_evidencia">ejecucion_api_evidencia</a></li>
+<li><a href="#ejecucion_navegador_login">ejecucion_navegador_login</a></li>
+<li><a href="#ejecucion_navegador_captura">ejecucion_navegador_captura</a></li>
+<li><a href="#ejecucion_agregar_evidencia">ejecucion_agregar_evidencia</a></li>
+<li><a href="#ejecucion_finalizar">ejecucion_finalizar</a></li>
+<li><a href="#ejecucion_bugs">ejecucion_bugs</a></li>
+<li><a href="#saf_buscar_pantalla">saf_buscar_pantalla</a></li>
+<li><a href="#saf_pantalla">saf_pantalla</a></li>
+<li><a href="#saf_ir">saf_ir</a></li>
+<li><a href="#saf_estado">saf_estado</a></li>
+<li><a href="#saf_llenar">saf_llenar</a></li>
+<li><a href="#saf_click">saf_click</a></li>
+<li><a href="#saf_modal">saf_modal</a></li>
+<li><a href="#saf_tabla">saf_tabla</a></li>
+<li><a href="#saf_inspeccionar">saf_inspeccionar</a></li>
+<li><a href="#saf_reindexar">saf_reindexar</a></li>
+<li><a href="#credenciales_definir">credenciales_definir</a></li>
+<li><a href="#credenciales_estado">credenciales_estado</a></li>
+<li><a href="#credenciales_olvidar">credenciales_olvidar</a></li>
+</ul>
+<h2 id="guia">guia</h2>
+<p>Guías de trabajo QA de SAF (rol, reglas, flujos y el método del plan de pruebas). Sin tema lista las guías.
+
+    Léela al empezar: guia(&#x27;general&#x27;); para un plan de pruebas: guia(&#x27;plan-pruebas&#x27;) y sus fases.
+    </p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>tema</code></td><td>string</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;tema&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Tema&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;guiaArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="saf_diagnostico">saf_diagnostico</h2>
+<p>Estado general: VPN, credenciales AWS, acceso a EKS y a la BD QA. Úsalo primero.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;saf_diagnosticoArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="vpn_status">vpn_status</h2>
+<p>Estado de Cloudflare WARP: conexión, registro (organización/usuario) y rutas incluidas.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;vpn_statusArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="vpn_connect">vpn_connect</h2>
+<p>Conecta la VPN (requiere un registro vigente). Si no conecta, usa vpn_reauth_start.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>wait_s</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;wait_s&quot;: {
+      &quot;default&quot;: 20,
+      &quot;title&quot;: &quot;Wait S&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;title&quot;: &quot;vpn_connectArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="vpn_disconnect">vpn_disconnect</h2>
+<p>Desconecta la VPN (el registro se conserva).</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;vpn_disconnectArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="vpn_reauth_start">vpn_reauth_start</h2>
+<p>Inicia un nuevo login de Zero Trust (Microsoft) para la VPN.
+
+    Borra el registro anterior, crea uno nuevo para la organización y abre la página de login en el
+    Firefox del escritorio del servidor. Devuelve la URL, el enlace VNC y una captura de pantalla.
+    El usuario solo autentica (QR / número en Microsoft Authenticator desde el celular).
+    </p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>reset_registration</code></td><td>boolean</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;reset_registration&quot;: {
+      &quot;default&quot;: true,
+      &quot;title&quot;: &quot;Reset Registration&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;title&quot;: &quot;vpn_reauth_startArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="vpn_reauth_finish">vpn_reauth_finish</h2>
+<p>Termina el registro de la VPN: aplica el token &#x27;com.cloudflare.warp://…&#x27; si se da y conecta.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>token</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>connect</code></td><td>boolean</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;token&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Token&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;connect&quot;: {
+      &quot;default&quot;: true,
+      &quot;title&quot;: &quot;Connect&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;title&quot;: &quot;vpn_reauth_finishArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="desktop_screenshot">desktop_screenshot</h2>
+<p>Captura del escritorio del servidor (donde está el Firefox del login), con enlace descargable.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;desktop_screenshotArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="desktop_click">desktop_click</h2>
+<p>Clic en el escritorio del servidor (coordenadas de desktop_screenshot).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>x</code></td><td>integer</td><td>sí</td><td></td></tr>
+<tr><td><code>y</code></td><td>integer</td><td>sí</td><td></td></tr>
+<tr><td><code>double</code></td><td>boolean</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;x&quot;: {
+      &quot;title&quot;: &quot;X&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;y&quot;: {
+      &quot;title&quot;: &quot;Y&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;double&quot;: {
+      &quot;default&quot;: false,
+      &quot;title&quot;: &quot;Double&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;x&quot;,
+    &quot;y&quot;
+  ],
+  &quot;title&quot;: &quot;desktop_clickArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="desktop_type">desktop_type</h2>
+<p>Escribe texto en la ventana activa del escritorio (p. ej. el correo en el login de Microsoft).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>text</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;text&quot;: {
+      &quot;title&quot;: &quot;Text&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;text&quot;
+  ],
+  &quot;title&quot;: &quot;desktop_typeArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="desktop_key">desktop_key</h2>
+<p>Pulsa una tecla en el escritorio: Return, Tab, Escape, ctrl+l, F5…</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>key</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;key&quot;: {
+      &quot;title&quot;: &quot;Key&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;key&quot;
+  ],
+  &quot;title&quot;: &quot;desktop_keyArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="desktop_open_url">desktop_open_url</h2>
+<p>Abre una URL en el Firefox del escritorio del servidor.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>url</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;url&quot;: {
+      &quot;title&quot;: &quot;Url&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;url&quot;
+  ],
+  &quot;title&quot;: &quot;desktop_open_urlArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="aws_sso_login_start">aws_sso_login_start</h2>
+<p>Inicia el login AWS SSO por código de dispositivo. Devuelve URL, código y QR para abrir en el celular.
+
+    Después de que el usuario apruebe, llama aws_sso_login_finish.
+    </p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;aws_sso_login_startArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="aws_sso_login_finish">aws_sso_login_finish</h2>
+<p>Espera a que el usuario apruebe el login SSO y valida las credenciales.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>wait_s</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;wait_s&quot;: {
+      &quot;default&quot;: 60,
+      &quot;title&quot;: &quot;Wait S&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;title&quot;: &quot;aws_sso_login_finishArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="aws_set_credentials">aws_set_credentials</h2>
+<p>Usa credenciales temporales pegadas del portal AWS SSO (&#x27;export AWS_ACCESS_KEY_ID=…&#x27; etc.).
+
+    Quedan solo en memoria y tienen prioridad sobre el perfil SSO hasta aws_clear_credentials.
+    </p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>text</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;text&quot;: {
+      &quot;title&quot;: &quot;Text&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;text&quot;
+  ],
+  &quot;title&quot;: &quot;aws_set_credentialsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="aws_clear_credentials">aws_clear_credentials</h2>
+<p>Olvida las credenciales pegadas y vuelve al perfil SSO.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {},
+  &quot;title&quot;: &quot;aws_clear_credentialsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="k8s_pods">k8s_pods</h2>
+<p>Lista pods (estado, reinicios, edad). filter: texto en el nombre (p. ej. &#x27;disbursement&#x27;).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>filter</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>namespace</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>only_problems</code></td><td>boolean</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;filter&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Filter&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;namespace&quot;: {
+      &quot;default&quot;: &quot;saf-qa&quot;,
+      &quot;title&quot;: &quot;Namespace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;only_problems&quot;: {
+      &quot;default&quot;: false,
+      &quot;title&quot;: &quot;Only Problems&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;title&quot;: &quot;k8s_podsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="k8s_logs">k8s_logs</h2>
+<p>Logs de un pod o de un microservicio.
+
+    target: nombre exacto del pod o prefijo del deployment (p. ej. &#x27;ms-disbursement&#x27;).
+    container: por defecto el de la app (no istio-proxy). since: &#x27;15m&#x27;, &#x27;2h&#x27;. grep: regex (sin distinguir mayúsculas)
+    para filtrar líneas. previous: logs del contenedor anterior (útil en CrashLoopBackOff). all_pods: todas las réplicas.
+    </p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>namespace</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>container</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>tail</code></td><td>integer</td><td>no</td><td></td></tr>
+<tr><td><code>since</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>grep</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>previous</code></td><td>boolean</td><td>no</td><td></td></tr>
+<tr><td><code>all_pods</code></td><td>boolean</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;target&quot;: {
+      &quot;title&quot;: &quot;Target&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;namespace&quot;: {
+      &quot;default&quot;: &quot;saf-qa&quot;,
+      &quot;title&quot;: &quot;Namespace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;container&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Container&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;tail&quot;: {
+      &quot;default&quot;: 200,
+      &quot;title&quot;: &quot;Tail&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;since&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Since&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;grep&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Grep&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;previous&quot;: {
+      &quot;default&quot;: false,
+      &quot;title&quot;: &quot;Previous&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;all_pods&quot;: {
+      &quot;default&quot;: false,
+      &quot;title&quot;: &quot;All Pods&quot;,
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;
+  ],
+  &quot;title&quot;: &quot;k8s_logsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="k8s_describe">k8s_describe</h2>
+<p>Estado detallado de un pod (contenedores, último error/exit code, eventos).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>namespace</code></td><td>string</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;target&quot;: {
+      &quot;title&quot;: &quot;Target&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;namespace&quot;: {
+      &quot;default&quot;: &quot;saf-qa&quot;,
+      &quot;title&quot;: &quot;Namespace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;
+  ],
+  &quot;title&quot;: &quot;k8s_describeArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="k8s_events">k8s_events</h2>
+<p>Eventos recientes del namespace (Warnings, reinicios, fallos de probes, OOMKilled…).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>namespace</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>filter</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>limit</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;namespace&quot;: {
+      &quot;default&quot;: &quot;saf-qa&quot;,
+      &quot;title&quot;: &quot;Namespace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;filter&quot;: {
+      &quot;default&quot;: &quot;&quot;,
+      &quot;title&quot;: &quot;Filter&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;limit&quot;: {
+      &quot;default&quot;: 60,
+      &quot;title&quot;: &quot;Limit&quot;,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;title&quot;: &quot;k8s_eventsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="k8s_deployments">k8s_deployments</h2>
+<p>Deployments del namespace con réplicas listas e imagen desplegada.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>namespace</code></td><td>string</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;namespace&quot;: {
+      &quot;default&quot;: &quot;saf-qa&quot;,
+      &quot;title&quot;: &quot;Namespace&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;title&quot;: &quot;k8s_deploymentsArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="host_run">host_run</h2>
+<p>Ejecuta un comando en el servidor Linux (usuario ubuntu). Último recurso; salida recortada.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>command</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>timeout</code></td><td>number</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;properties&quot;: {
+    &quot;command&quot;: {
+      &quot;title&quot;: &quot;Command&quot;,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;timeout&quot;: {
+      &quot;default&quot;: 60.0,
+      &quot;title&quot;: &quot;Timeout&quot;,
+      &quot;type&quot;: &quot;number&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;command&quot;
+  ],
+  &quot;title&quot;: &quot;host_runArguments&quot;,
+  &quot;type&quot;: &quot;object&quot;
+}</pre></details>
+<h2 id="plan_pruebas_evidencia">plan_pruebas_evidencia</h2>
+<p>Paso 1 de la creación del plan de pruebas (sigue el skill plan-pruebas): con el ID de la HU trae la HU de Azure DevOps, el código que se construyó para ella (diffs de sus PRs/commits/ramas, clasificados por capa front/back/bd) y la estructura y datos reales de las tablas de la BD (schsaf) que tocan esos cambios. La BD es opcional: si no responde en unos segundos sigue sin ella y devuelve &#x27;bd.apunte&#x27;. Solo devuelve datos; el método de las fases está en el skill. Tarda ~1 min.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>ID numérico de la HU en Azure DevOps.</td></tr>
+<tr><td><code>usar_codigo</code></td><td>boolean</td><td>no</td><td>Analizar el código fuente de la HU (def. true).</td></tr>
+<tr><td><code>usar_bd</code></td><td>boolean</td><td>no</td><td>Perfilar las tablas reales de la BD (def. true; si la BD no responde se omite y queda el apunte).</td></tr>
+<tr><td><code>tablas</code></td><td>array</td><td>no</td><td>Tablas adicionales a perfilar (opcional), p. ej. [&#x27;tbl_maintenance_type&#x27;].</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID numérico de la HU en Azure DevOps.&quot;
+    },
+    &quot;usar_codigo&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Analizar el código fuente de la HU (def. true).&quot;
+    },
+    &quot;usar_bd&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Perfilar las tablas reales de la BD (def. true; si la BD no responde se omite y queda el apunte).&quot;
+    },
+    &quot;tablas&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: &quot;Tablas adicionales a perfilar (opcional), p. ej. [&#x27;tbl_maintenance_type&#x27;].&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;hu_id&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_interpretar_criterios">plan_pruebas_interpretar_criterios</h2>
+<p>Fase 0 de la creación del plan de pruebas: recibe el JSON con que el agente interpretó los criterios del funcional (siguiendo la referencia fase-0-criterios del skill plan-pruebas), renumera CA-01… de forma continua y devuelve &#x27;criterios_numerados&#x27; (markdown con Opciones, ⚠ Interpretación, Resumen y Definición) para las fases 1 a 4.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>interpretacion</code></td><td>[&#x27;object&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>JSON {groups:[{title, criteria:[{id, text, options, note}], summaries:[{text, covers}]}], definitions:[{term, text}]} o su texto.</td></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>no</td><td>ID de la HU: guarda la lista en Planeacion/criterios.md para que las fases siguientes la lean sin reenviarla.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;interpretacion&quot;: {
+      &quot;type&quot;: [
+        &quot;object&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;JSON {groups:[{title, criteria:[{id, text, options, note}], summaries:[{text, covers}]}], definitions:[{term, text}]} o su texto.&quot;
+    },
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID de la HU: guarda la lista en Planeacion/criterios.md para que las fases siguientes la lean sin reenviarla.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;interpretacion&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_obtener_hu">plan_pruebas_obtener_hu</h2>
+<p>Importa una HU de Azure DevOps (título, sprint, célula, descripción y criterios de aceptación limpios).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>ID numérico de la HU en Azure DevOps.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID numérico de la HU en Azure DevOps.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;hu_id&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_preparar_generacion">plan_pruebas_preparar_generacion</h2>
+<p>Fase 3 de la creación del plan de pruebas: recibe el contexto técnico (fase 1) y la cobertura del juez (fase 2) que escribió el agente, valida las equivalencias de códigos, arma la matriz de cobertura criterio ↔ código y devuelve el prompt final de generación de escenarios. Lo que no se pase se lee de Planeacion/ de la HU (contexto-tecnico.md, juez.md, criterios.md); un valor también puede ser la ruta del archivo. Lo usado queda guardado ahí.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>ID numérico de la HU en Azure DevOps.</td></tr>
+<tr><td><code>contexto_tecnico</code></td><td>string</td><td>no</td><td>Contexto técnico de la fase 1 (secciones &#x27;## ...&#x27;) o ruta del archivo. Def.: Planeacion/contexto-tecnico.md.</td></tr>
+<tr><td><code>cobertura_juez</code></td><td>string</td><td>no</td><td>Salida del juez de la fase 2 (&#x27;## Análisis&#x27; y &#x27;## Cobertura...&#x27;) o ruta. Def.: Planeacion/juez.md.</td></tr>
+<tr><td><code>criterios_numerados</code></td><td>[&#x27;string&#x27;, &#x27;object&#x27;]</td><td>no</td><td>Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU.</td></tr>
+<tr><td><code>tecnica</code></td><td>string</td><td>no</td><td>Técnica ISTQB preferida (def. &#x27;Automática&#x27;): Partición Equivalente, Análisis de Valor Límite, Tabla de Decisión, Transición de Estados.</td></tr>
+<tr><td><code>instruccion</code></td><td>string</td><td>no</td><td>Instrucción adicional del analista (opcional).</td></tr>
+<tr><td><code>apunte_bd</code></td><td>string</td><td>no</td><td>Apunte de BD no disponible (&#x27;bd.apunte&#x27; de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; &quot;&quot; para omitirlo.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID numérico de la HU en Azure DevOps.&quot;
+    },
+    &quot;contexto_tecnico&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Contexto técnico de la fase 1 (secciones &#x27;## ...&#x27;) o ruta del archivo. Def.: Planeacion/contexto-tecnico.md.&quot;
+    },
+    &quot;cobertura_juez&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Salida del juez de la fase 2 (&#x27;## Análisis&#x27; y &#x27;## Cobertura...&#x27;) o ruta. Def.: Planeacion/juez.md.&quot;
+    },
+    &quot;criterios_numerados&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;object&quot;
+      ],
+      &quot;description&quot;: &quot;Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU.&quot;
+    },
+    &quot;tecnica&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Técnica ISTQB preferida (def. &#x27;Automática&#x27;): Partición Equivalente, Análisis de Valor Límite, Tabla de Decisión, Transición de Estados.&quot;
+    },
+    &quot;instruccion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Instrucción adicional del analista (opcional).&quot;
+    },
+    &quot;apunte_bd&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Apunte de BD no disponible (&#x27;bd.apunte&#x27; de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; \&quot;\&quot; para omitirlo.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;hu_id&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_leer_codigo">plan_pruebas_leer_codigo</h2>
+<p>Lee un archivo del código (solo lectura, con número de línea y secretos enmascarados) en un commit o rama. Se lee del clon local (git, instantáneo) si el repositorio está clonado; si no, de Azure Repos. Usa repositorio/commit de &#x27;referencias_codigo&#x27; (o de plan_pruebas_buscar_codigo); sin &#x27;version&#x27; lee la rama desplegada en QA (PLAN_PRUEBAS_RAMAS: release/current-qa, release/current o trunk, la primera que exista).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ruta</code></td><td>string</td><td>sí</td><td>Ruta del archivo, p. ej. /src/main/java/.../Service.java</td></tr>
+<tr><td><code>repositorio</code></td><td>string</td><td>no</td><td>Nombre del repo, p. ej. NU0139001_SAF_ms_maintenance.</td></tr>
+<tr><td><code>version</code></td><td>string</td><td>no</td><td>SHA del commit o nombre de la rama (vacío = rama desplegada en QA según PLAN_PRUEBAS_RAMAS).</td></tr>
+<tr><td><code>tipo_version</code></td><td>string</td><td>no</td><td>&#x27;commit&#x27; (def.) o &#x27;branch&#x27;.</td></tr>
+<tr><td><code>project_id</code></td><td>string</td><td>no</td><td>Solo si el repo no está clonado localmente.</td></tr>
+<tr><td><code>repository_id</code></td><td>string</td><td>no</td><td>Solo si el repo no está clonado localmente.</td></tr>
+<tr><td><code>desde</code></td><td>integer</td><td>no</td><td>Línea inicial (opcional).</td></tr>
+<tr><td><code>hasta</code></td><td>integer</td><td>no</td><td>Línea final (opcional, máx. 400 por lectura).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ruta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta del archivo, p. ej. /src/main/java/.../Service.java&quot;
+    },
+    &quot;repositorio&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre del repo, p. ej. NU0139001_SAF_ms_maintenance.&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;SHA del commit o nombre de la rama (vacío = rama desplegada en QA según PLAN_PRUEBAS_RAMAS).&quot;
+    },
+    &quot;tipo_version&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;&#x27;commit&#x27; (def.) o &#x27;branch&#x27;.&quot;
+    },
+    &quot;project_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Solo si el repo no está clonado localmente.&quot;
+    },
+    &quot;repository_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Solo si el repo no está clonado localmente.&quot;
+    },
+    &quot;desde&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Línea inicial (opcional).&quot;
+    },
+    &quot;hasta&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Línea final (opcional, máx. 400 por lectura).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ruta&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_buscar_codigo">plan_pruebas_buscar_codigo</h2>
+<p>Busca términos (hasta 4) en todos los repos del aplicativo (prefijo del nombre, p. ej. &#x27;NU0139001_&#x27;) en su rama principal: pantalla del front que llama un endpoint, significado de un código, proceso que genera un dato. Usa git grep sobre los clones locales (actualizados con fetch); si no hay clones, la búsqueda de Azure.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>prefijos_repo</code></td><td>array</td><td>sí</td><td></td></tr>
+<tr><td><code>terminos</code></td><td>array</td><td>sí</td><td></td></tr>
+<tr><td><code>project_id</code></td><td>string</td><td>no</td><td>Solo para buscar en Azure si no hay clones locales.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;prefijos_repo&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;terminos&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;project_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Solo para buscar en Azure si no hay clones locales.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;prefijos_repo&quot;,
+    &quot;terminos&quot;
+  ]
+}</pre></details>
+<h2 id="plan_pruebas_exportar_matriz">plan_pruebas_exportar_matriz</h2>
+<p>Genera la matriz de escenarios de prueba en .docx (formato estándar: índice con enlaces y una página por escenario con Precondiciones / Paso a paso / Evidencias / Resultado Esperado) a partir de los casos en JSON {testCases:[{title, preconditions, steps:[{numero_paso, accion}], expectedResults, ...}]}. Con solo hu_id lee Planeacion/casos.json y criterios.md; si se pasan los casos, quedan guardados en casos.json.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>casos</code></td><td>[&#x27;object&#x27;, &#x27;array&#x27;, &#x27;string&#x27;]</td><td>no</td><td>JSON de la generación (con testCases), el arreglo testCases, su texto JSON o la ruta del archivo. Def.: Planeacion/casos.json de la HU.</td></tr>
+<tr><td><code>titulo_hu</code></td><td>string</td><td>no</td><td>Título de la HU para el encabezado.</td></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>no</td><td>ID de la HU (se usa en el nombre del archivo y para obtener el título si no se indica).</td></tr>
+<tr><td><code>criterios_numerados</code></td><td>[&#x27;string&#x27;, &#x27;object&#x27;]</td><td>no</td><td>Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU.</td></tr>
+<tr><td><code>apunte_bd</code></td><td>string</td><td>no</td><td>Apunte de BD no disponible (&#x27;bd.apunte&#x27; de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; &quot;&quot; para omitirlo.</td></tr>
+<tr><td><code>directorio_salida</code></td><td>string</td><td>no</td><td>Carpeta donde guardar el .docx (opcional).</td></tr>
+<tr><td><code>incluir_archivo</code></td><td>boolean</td><td>no</td><td>Adjunta el .docx (base64) en la respuesta MCP (def. false: basta la ruta &#x27;archivo&#x27;).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;casos&quot;: {
+      &quot;type&quot;: [
+        &quot;object&quot;,
+        &quot;array&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;JSON de la generación (con testCases), el arreglo testCases, su texto JSON o la ruta del archivo. Def.: Planeacion/casos.json de la HU.&quot;
+    },
+    &quot;titulo_hu&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título de la HU para el encabezado.&quot;
+    },
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID de la HU (se usa en el nombre del archivo y para obtener el título si no se indica).&quot;
+    },
+    &quot;criterios_numerados&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;object&quot;
+      ],
+      &quot;description&quot;: &quot;Lista CA-xx de plan_pruebas_interpretar_criterios (o el JSON de la fase 0). Si se omite, se lee de Planeacion/criterios.md de la HU.&quot;
+    },
+    &quot;apunte_bd&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Apunte de BD no disponible (&#x27;bd.apunte&#x27; de plan_pruebas_evidencia). Por defecto se usa el de la última evidencia de la HU; \&quot;\&quot; para omitirlo.&quot;
+    },
+    &quot;directorio_salida&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Carpeta donde guardar el .docx (opcional).&quot;
+    },
+    &quot;incluir_archivo&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Adjunta el .docx (base64) en la respuesta MCP (def. false: basta la ruta &#x27;archivo&#x27;).&quot;
+    }
+  },
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="browser_navigate">browser_navigate</h2>
+<p>Navega el navegador a una URL. Arranca el navegador si aún no está abierto.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>url</code></td><td>string</td><td>sí</td><td>La URL a la que navegar.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;url&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;La URL a la que navegar.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;url&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_navigate_back">browser_navigate_back</h2>
+<p>Vuelve a la página anterior del historial.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_close">browser_close</h2>
+<p>Cierra la página y libera el navegador junto con todos sus recursos.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_snapshot">browser_snapshot</h2>
+<p>Captura el snapshot de accesibilidad de la página actual y asigna una referencia [ref=eN] a cada elemento. Es preferible a una captura de pantalla: es el insumo para click, type, hover, etc.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>target</code></td><td>string</td><td>no</td><td>Limita el snapshot a un elemento concreto (ref o selector).</td></tr>
+<tr><td><code>filename</code></td><td>string</td><td>no</td><td>Guarda el snapshot en un archivo en lugar de devolverlo.</td></tr>
+<tr><td><code>depth</code></td><td>integer</td><td>no</td><td>Profundidad máxima del árbol.</td></tr>
+<tr><td><code>boxes</code></td><td>boolean</td><td>no</td><td>Incluye el bounding box [box=x,y,w,h] de cada elemento.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Limita el snapshot a un elemento concreto (ref o selector).&quot;
+    },
+    &quot;filename&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Guarda el snapshot en un archivo en lugar de devolverlo.&quot;
+    },
+    &quot;depth&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Profundidad máxima del árbol.&quot;
+    },
+    &quot;boxes&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Incluye el bounding box [box=x,y,w,h] de cada elemento.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_find">browser_find</h2>
+<p>Busca texto o una expresión regular dentro del snapshot de accesibilidad y devuelve sólo los nodos coincidentes con su ref. Mucho más económico en tokens que capturar el snapshot completo.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>text</code></td><td>string</td><td>no</td><td>Texto plano a buscar (coincidencia parcial, sin distinguir mayúsculas).</td></tr>
+<tr><td><code>regex</code></td><td>string</td><td>no</td><td>Expresión regular. Usa &#x27;/patron/i&#x27; para no distinguir mayúsculas.</td></tr>
+<tr><td><code>context</code></td><td>integer</td><td>no</td><td>Líneas de contexto alrededor (def. 2).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;text&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto plano a buscar (coincidencia parcial, sin distinguir mayúsculas).&quot;
+    },
+    &quot;regex&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Expresión regular. Usa &#x27;/patron/i&#x27; para no distinguir mayúsculas.&quot;
+    },
+    &quot;context&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Líneas de contexto alrededor (def. 2).&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_click">browser_click</h2>
+<p>Hace clic sobre un elemento de la página.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.</td></tr>
+<tr><td><code>doubleClick</code></td><td>boolean</td><td>no</td><td>Doble clic en lugar de clic simple.</td></tr>
+<tr><td><code>button</code></td><td>string</td><td>no</td><td>Botón del ratón: left | right | middle. Por defecto left.</td></tr>
+<tr><td><code>modifiers</code></td><td>array</td><td>no</td><td>Teclas modificadoras: Alt, Control, Meta, Shift.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.&quot;
+    },
+    &quot;doubleClick&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Doble clic en lugar de clic simple.&quot;
+    },
+    &quot;button&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Botón del ratón: left | right | middle. Por defecto left.&quot;
+    },
+    &quot;modifiers&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Teclas modificadoras: Alt, Control, Meta, Shift.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_hover">browser_hover</h2>
+<p>Sitúa el puntero sobre un elemento de la página.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_type">browser_type</h2>
+<p>Escribe texto dentro de un elemento editable.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.</td></tr>
+<tr><td><code>text</code></td><td>string</td><td>sí</td><td>Texto a escribir en el elemento.</td></tr>
+<tr><td><code>submit</code></td><td>boolean</td><td>no</td><td>Pulsa Enter al terminar.</td></tr>
+<tr><td><code>slowly</code></td><td>boolean</td><td>no</td><td>Escribe carácter a carácter (dispara manejadores de teclado).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.&quot;
+    },
+    &quot;text&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto a escribir en el elemento.&quot;
+    },
+    &quot;submit&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Pulsa Enter al terminar.&quot;
+    },
+    &quot;slowly&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Escribe carácter a carácter (dispara manejadores de teclado).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;,
+    &quot;text&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_fill_form">browser_fill_form</h2>
+<p>Rellena varios campos de formulario en una sola llamada. Cada campo indica su tipo: textbox, checkbox, radio, combobox o slider.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>fields</code></td><td>array</td><td>sí</td><td>Lista de campos. Cada elemento: {name, target, type, value}. &#x27;type&#x27; ∈ textbox|checkbox|radio|combobox|slider.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Lista de campos. Cada elemento: {name, target, type, value}. &#x27;type&#x27; ∈ textbox|checkbox|radio|combobox|slider.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;fields&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_select_option">browser_select_option</h2>
+<p>Selecciona una o varias opciones en un desplegable (&lt;select&gt;).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>sí</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.</td></tr>
+<tr><td><code>values</code></td><td>array</td><td>sí</td><td>Valores a seleccionar (uno o varios).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único.&quot;
+    },
+    &quot;values&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Valores a seleccionar (uno o varios).&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;target&quot;,
+    &quot;values&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_press_key">browser_press_key</h2>
+<p>Pulsa una tecla del teclado, p.ej. &#x27;ArrowLeft&#x27;, &#x27;Enter&#x27; o el carácter &#x27;a&#x27;.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>key</code></td><td>string</td><td>sí</td><td>Nombre de la tecla o carácter a generar.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;key&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre de la tecla o carácter a generar.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;key&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_file_upload">browser_file_upload</h2>
+<p>Sube uno o varios archivos al selector de archivos activo. Si se omite &#x27;paths&#x27;, se cancela el diálogo de selección.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>paths</code></td><td>array</td><td>no</td><td>Rutas absolutas de los archivos a subir.</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>no</td><td>Input[type=file] destino (ref o selector). Recomendado.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;paths&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Rutas absolutas de los archivos a subir.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Input[type=file] destino (ref o selector). Recomendado.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_handle_dialog">browser_handle_dialog</h2>
+<p>Acepta o descarta el diálogo pendiente (alert, confirm, prompt o beforeunload).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>accept</code></td><td>boolean</td><td>sí</td><td>true para aceptar, false para descartar.</td></tr>
+<tr><td><code>promptText</code></td><td>string</td><td>no</td><td>Texto a introducir si el diálogo es de tipo prompt.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;accept&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;true para aceptar, false para descartar.&quot;
+    },
+    &quot;promptText&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto a introducir si el diálogo es de tipo prompt.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;accept&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_evaluate">browser_evaluate</h2>
+<p>Evalúa una expresión JavaScript en la página o sobre un elemento. La función debe tener la forma &#x27;() =&gt; {...}&#x27; o &#x27;(element) =&gt; {...}&#x27;.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>no</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único. Si se indica, se pasa como argumento a la función.</td></tr>
+<tr><td><code>function</code></td><td>string</td><td>sí</td><td>Función JS: () =&gt; { ... } o (element) =&gt; { ... }</td></tr>
+<tr><td><code>filename</code></td><td>string</td><td>no</td><td>Guarda el resultado en un archivo en lugar de devolverlo.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único. Si se indica, se pasa como argumento a la función.&quot;
+    },
+    &quot;function&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Función JS: () =&gt; { ... } o (element) =&gt; { ... }&quot;
+    },
+    &quot;filename&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Guarda el resultado en un archivo en lugar de devolverlo.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;function&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_wait_for">browser_wait_for</h2>
+<p>Espera a que aparezca un texto, desaparezca un texto o transcurra un tiempo.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>time</code></td><td>number</td><td>no</td><td>Segundos a esperar.</td></tr>
+<tr><td><code>text</code></td><td>string</td><td>no</td><td>Texto que debe aparecer en la página.</td></tr>
+<tr><td><code>textGone</code></td><td>string</td><td>no</td><td>Texto que debe desaparecer de la página.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;time&quot;: {
+      &quot;type&quot;: &quot;number&quot;,
+      &quot;description&quot;: &quot;Segundos a esperar.&quot;
+    },
+    &quot;text&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto que debe aparecer en la página.&quot;
+    },
+    &quot;textGone&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto que debe desaparecer de la página.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_take_screenshot">browser_take_screenshot</h2>
+<p>Captura una imagen de la página o de un elemento. Para actuar sobre la página usa browser_snapshot, no la captura.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>element</code></td><td>string</td><td>no</td><td>Descripción legible del elemento (para trazabilidad de la acción).</td></tr>
+<tr><td><code>target</code></td><td>string</td><td>no</td><td>Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único. Captura sólo ese elemento.</td></tr>
+<tr><td><code>type</code></td><td>string</td><td>no</td><td>Formato: png | jpeg. Por defecto png.</td></tr>
+<tr><td><code>filename</code></td><td>string</td><td>no</td><td>Nombre del archivo destino (relativo al directorio de salida).</td></tr>
+<tr><td><code>fullPage</code></td><td>boolean</td><td>no</td><td>Captura la página completa con scroll (incompatible con &#x27;target&#x27;).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;element&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Descripción legible del elemento (para trazabilidad de la acción).&quot;
+    },
+    &quot;target&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Referencia exacta del elemento tomada del snapshot (p.ej. &#x27;e12&#x27; o &#x27;ref=e12&#x27;), o un selector CSS único. Captura sólo ese elemento.&quot;
+    },
+    &quot;type&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Formato: png | jpeg. Por defecto png.&quot;
+    },
+    &quot;filename&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre del archivo destino (relativo al directorio de salida).&quot;
+    },
+    &quot;fullPage&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Captura la página completa con scroll (incompatible con &#x27;target&#x27;).&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_console_messages">browser_console_messages</h2>
+<p>Devuelve los mensajes de consola capturados en la página.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>level</code></td><td>string</td><td>no</td><td>Nivel mínimo: error | warning | info | log. Por defecto info.</td></tr>
+<tr><td><code>all</code></td><td>boolean</td><td>no</td><td>Todos los mensajes de la sesión, no sólo desde la última navegación.</td></tr>
+<tr><td><code>filename</code></td><td>string</td><td>no</td><td>Guarda los mensajes en un archivo en lugar de devolverlos.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;level&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nivel mínimo: error | warning | info | log. Por defecto info.&quot;
+    },
+    &quot;all&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Todos los mensajes de la sesión, no sólo desde la última navegación.&quot;
+    },
+    &quot;filename&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Guarda los mensajes en un archivo en lugar de devolverlos.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_network_requests">browser_network_requests</h2>
+<p>Lista numerada de las peticiones de red desde la carga de la página. Usa browser_network_request con el número para ver el detalle.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>static</code></td><td>boolean</td><td>no</td><td>Incluye recursos estáticos (imágenes, fuentes, scripts). Def. false.</td></tr>
+<tr><td><code>filter</code></td><td>string</td><td>no</td><td>Sólo peticiones cuya URL case con esta expresión regular.</td></tr>
+<tr><td><code>filename</code></td><td>string</td><td>no</td><td>Guarda el listado en un archivo.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;static&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Incluye recursos estáticos (imágenes, fuentes, scripts). Def. false.&quot;
+    },
+    &quot;filter&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Sólo peticiones cuya URL case con esta expresión regular.&quot;
+    },
+    &quot;filename&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Guarda el listado en un archivo.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="browser_tabs">browser_tabs</h2>
+<p>Lista, crea, cierra o selecciona una pestaña del navegador.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>action</code></td><td>string</td><td>sí</td><td>Operación: list | new | close | select.</td></tr>
+<tr><td><code>index</code></td><td>integer</td><td>no</td><td>Índice de pestaña para close/select.</td></tr>
+<tr><td><code>url</code></td><td>string</td><td>no</td><td>URL a abrir cuando action=new.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;action&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Operación: list | new | close | select.&quot;
+    },
+    &quot;index&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Índice de pestaña para close/select.&quot;
+    },
+    &quot;url&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;URL a abrir cuando action=new.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;action&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_set_auth">api_set_auth</h2>
+<p>Configura las credenciales de autenticación globales de la sesión o escenario. Se aplican automáticamente a todas las peticiones posteriores de &#x27;api_request&#x27;. Soporta bearer, basic, apiKey y oauth2 (con obtención automática del token vía client_credentials si se indica &#x27;tokenUrl&#x27;). Los valores admiten {{variables}} de sesión. Usa type=&#x27;none&#x27; para limpiar la autenticación.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>type</code></td><td>string</td><td>sí</td><td>Esquema de autenticación a aplicar.</td></tr>
+<tr><td><code>token</code></td><td>string</td><td>no</td><td>Token para &#x27;bearer&#x27;, &#x27;oauth2&#x27; o valor de la clave en &#x27;apiKey&#x27;.</td></tr>
+<tr><td><code>username</code></td><td>string</td><td>no</td><td>Usuario para &#x27;basic&#x27; o client_id para &#x27;oauth2&#x27;.</td></tr>
+<tr><td><code>password</code></td><td>string</td><td>no</td><td>Contraseña para &#x27;basic&#x27; o client_secret para &#x27;oauth2&#x27;.</td></tr>
+<tr><td><code>headerName</code></td><td>string</td><td>no</td><td>Nombre de la cabecera para &#x27;apiKey&#x27; (por defecto X-API-Key).</td></tr>
+<tr><td><code>tokenUrl</code></td><td>string</td><td>no</td><td>Endpoint de token para &#x27;oauth2&#x27;. Si se indica, se solicita el access_token con client_credentials usando username/password como client_id/client_secret.</td></tr>
+<tr><td><code>scope</code></td><td>string</td><td>no</td><td>Scope OAuth2 opcional para la petición de token.</td></tr>
+<tr><td><code>prefix</code></td><td>string</td><td>no</td><td>Prefijo del header Authorization (por defecto &#x27;Bearer&#x27;).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;type&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;bearer&quot;,
+        &quot;basic&quot;,
+        &quot;apiKey&quot;,
+        &quot;oauth2&quot;,
+        &quot;none&quot;
+      ],
+      &quot;description&quot;: &quot;Esquema de autenticación a aplicar.&quot;
+    },
+    &quot;token&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Token para &#x27;bearer&#x27;, &#x27;oauth2&#x27; o valor de la clave en &#x27;apiKey&#x27;.&quot;
+    },
+    &quot;username&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Usuario para &#x27;basic&#x27; o client_id para &#x27;oauth2&#x27;.&quot;
+    },
+    &quot;password&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Contraseña para &#x27;basic&#x27; o client_secret para &#x27;oauth2&#x27;.&quot;
+    },
+    &quot;headerName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre de la cabecera para &#x27;apiKey&#x27; (por defecto X-API-Key).&quot;
+    },
+    &quot;tokenUrl&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Endpoint de token para &#x27;oauth2&#x27;. Si se indica, se solicita el access_token con client_credentials usando username/password como client_id/client_secret.&quot;
+    },
+    &quot;scope&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Scope OAuth2 opcional para la petición de token.&quot;
+    },
+    &quot;prefix&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Prefijo del header Authorization (por defecto &#x27;Bearer&#x27;).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_set_variable">api_set_variable</h2>
+<p>Define o actualiza una variable de entorno/sesión (equivalente a pm.environment.set en Postman). Las variables se interpolan con la sintaxis {{clave}} en url, headers, queryParams y body de las peticiones posteriores. El valor admite cualquier tipo JSON. Usa &#x27;unset&#x27;: true para eliminarla.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>key</code></td><td>string</td><td>sí</td><td>Nombre de la variable.</td></tr>
+<tr><td><code>value</code></td><td></td><td>no</td><td>Valor (string, número, booleano, objeto o array).</td></tr>
+<tr><td><code>unset</code></td><td>boolean</td><td>no</td><td>Si es true elimina la variable en lugar de asignarla.</td></tr>
+<tr><td><code>secret</code></td><td>boolean</td><td>no</td><td>Si es true el valor se enmascara al mostrarlo.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;key&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre de la variable.&quot;
+    },
+    &quot;value&quot;: {
+      &quot;description&quot;: &quot;Valor (string, número, booleano, objeto o array).&quot;
+    },
+    &quot;unset&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Si es true elimina la variable en lugar de asignarla.&quot;
+    },
+    &quot;secret&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Si es true el valor se enmascara al mostrarlo.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;key&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_request">api_request</h2>
+<p>Ejecuta una petición HTTP completa controlando método, URL, cabeceras, query params, tipo de cuerpo y adjuntos. Aplica automáticamente la autenticación configurada con &#x27;api_set_auth&#x27; e interpola las {{variables}} de sesión. La respuesta queda guardada como &#x27;última respuesta&#x27; para &#x27;api_validate_response&#x27;, &#x27;api_validate_schema&#x27; y &#x27;api_extract&#x27;. Devuelve statusCode, responseTimeMs, responseHeaders y responseBody.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>method</code></td><td>string</td><td>sí</td><td>Método HTTP.</td></tr>
+<tr><td><code>url</code></td><td>string</td><td>sí</td><td>URL absoluta o relativa a MCP_API_BASE_URL. Admite {{variables}}.</td></tr>
+<tr><td><code>headers</code></td><td>object</td><td>no</td><td>Cabeceras adicionales (clave/valor).</td></tr>
+<tr><td><code>queryParams</code></td><td>object</td><td>no</td><td>Parámetros de query string (clave/valor).</td></tr>
+<tr><td><code>bodyType</code></td><td>string</td><td>no</td><td>json | form-data | x-www-form-urlencoded | raw. Si se omite y hay body, se asume &#x27;json&#x27;.</td></tr>
+<tr><td><code>body</code></td><td></td><td>no</td><td>Cuerpo de la petición: objeto/array para &#x27;json&#x27;, objeto de campos para los formularios, o string para &#x27;raw&#x27;.</td></tr>
+<tr><td><code>files</code></td><td>array</td><td>no</td><td>Adjuntos multipart. Cada elemento: { fieldName, filePath, fileName?, contentType? }. Fuerza bodyType=&#x27;form-data&#x27;.</td></tr>
+<tr><td><code>name</code></td><td>string</td><td>no</td><td>Nombre descriptivo del paso (aparece en el informe BDD).</td></tr>
+<tr><td><code>timeoutSeconds</code></td><td>integer</td><td>no</td><td>Timeout de esta petición (por defecto MCP_API_TIMEOUT).</td></tr>
+<tr><td><code>followRedirects</code></td><td>boolean</td><td>no</td><td>Seguir redirecciones 3xx (por defecto según config).</td></tr>
+<tr><td><code>verifyTls</code></td><td>boolean</td><td>no</td><td>Verificar certificado TLS (por defecto según config).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;method&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;GET&quot;,
+        &quot;POST&quot;,
+        &quot;PUT&quot;,
+        &quot;PATCH&quot;,
+        &quot;DELETE&quot;,
+        &quot;HEAD&quot;,
+        &quot;OPTIONS&quot;
+      ],
+      &quot;description&quot;: &quot;Método HTTP.&quot;
+    },
+    &quot;url&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;URL absoluta o relativa a MCP_API_BASE_URL. Admite {{variables}}.&quot;
+    },
+    &quot;headers&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Cabeceras adicionales (clave/valor).&quot;
+    },
+    &quot;queryParams&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Parámetros de query string (clave/valor).&quot;
+    },
+    &quot;bodyType&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;json&quot;,
+        &quot;form-data&quot;,
+        &quot;x-www-form-urlencoded&quot;,
+        &quot;raw&quot;
+      ],
+      &quot;description&quot;: &quot;json | form-data | x-www-form-urlencoded | raw. Si se omite y hay body, se asume &#x27;json&#x27;.&quot;
+    },
+    &quot;body&quot;: {
+      &quot;description&quot;: &quot;Cuerpo de la petición: objeto/array para &#x27;json&#x27;, objeto de campos para los formularios, o string para &#x27;raw&#x27;.&quot;
+    },
+    &quot;files&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Adjuntos multipart. Cada elemento: { fieldName, filePath, fileName?, contentType? }. Fuerza bodyType=&#x27;form-data&#x27;.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;fieldName&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;filePath&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;fileName&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;contentType&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;fieldName&quot;,
+          &quot;filePath&quot;
+        ]
+      }
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre descriptivo del paso (aparece en el informe BDD).&quot;
+    },
+    &quot;timeoutSeconds&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Timeout de esta petición (por defecto MCP_API_TIMEOUT).&quot;
+    },
+    &quot;followRedirects&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Seguir redirecciones 3xx (por defecto según config).&quot;
+    },
+    &quot;verifyTls&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Verificar certificado TLS (por defecto según config).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;method&quot;,
+    &quot;url&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_validate_response">api_validate_response</h2>
+<p>Motor de aserciones estilo Serenity REST sobre la última respuesta: código de estado, SLA de tiempo de respuesta, presencia de campos obligatorios y aserciones de valor por JSONPath. Devuelve el detalle de cada aserción (passed/failed) y el veredicto global. Operadores: equals, notEquals, contains, notContains, notNull, isNull, greaterThan, lessThan, greaterOrEqual, lessOrEqual, matches, in, type, length, empty, notEmpty.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>expectedStatus</code></td><td>integer</td><td>no</td><td>Código HTTP esperado (p. ej. 200, 201, 404).</td></tr>
+<tr><td><code>maxResponseTimeMs</code></td><td>integer</td><td>no</td><td>SLA: tiempo máximo de respuesta admisible en ms.</td></tr>
+<tr><td><code>requiredFields</code></td><td>array</td><td>no</td><td>Campos que deben existir y no ser null. Acepta JSONPath ($.data.id) o ruta con puntos (data.id).</td></tr>
+<tr><td><code>valueAssertions</code></td><td>array</td><td>no</td><td>Aserciones de valor: { jsonPath, operator, expected, description? }.</td></tr>
+<tr><td><code>expectedHeaders</code></td><td>object</td><td>no</td><td>Cabeceras esperadas en la respuesta. Valor &#x27;*&#x27; = basta con que exista.</td></tr>
+<tr><td><code>bodyContains</code></td><td>string</td><td>no</td><td>Subcadena que debe aparecer en el cuerpo crudo.</td></tr>
+<tr><td><code>requestIndex</code></td><td>integer</td><td>no</td><td>Validar una petición concreta del historial en lugar de la última (1 = la primera).</td></tr>
+<tr><td><code>failFast</code></td><td>boolean</td><td>no</td><td>Si es true, lanza error en la primera aserción fallida.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;expectedStatus&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Código HTTP esperado (p. ej. 200, 201, 404).&quot;
+    },
+    &quot;maxResponseTimeMs&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;SLA: tiempo máximo de respuesta admisible en ms.&quot;
+    },
+    &quot;requiredFields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: &quot;Campos que deben existir y no ser null. Acepta JSONPath ($.data.id) o ruta con puntos (data.id).&quot;
+    },
+    &quot;valueAssertions&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;Aserciones de valor: { jsonPath, operator, expected, description? }.&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;jsonPath&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;operator&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;equals&quot;,
+              &quot;notEquals&quot;,
+              &quot;contains&quot;,
+              &quot;notContains&quot;,
+              &quot;notNull&quot;,
+              &quot;isNull&quot;,
+              &quot;greaterThan&quot;,
+              &quot;lessThan&quot;,
+              &quot;greaterOrEqual&quot;,
+              &quot;lessOrEqual&quot;,
+              &quot;matches&quot;,
+              &quot;in&quot;,
+              &quot;type&quot;,
+              &quot;length&quot;,
+              &quot;empty&quot;,
+              &quot;notEmpty&quot;
+            ]
+          },
+          &quot;expected&quot;: {},
+          &quot;description&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;jsonPath&quot;,
+          &quot;operator&quot;
+        ]
+      }
+    },
+    &quot;expectedHeaders&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Cabeceras esperadas en la respuesta. Valor &#x27;*&#x27; = basta con que exista.&quot;
+    },
+    &quot;bodyContains&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Subcadena que debe aparecer en el cuerpo crudo.&quot;
+    },
+    &quot;requestIndex&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Validar una petición concreta del historial en lugar de la última (1 = la primera).&quot;
+    },
+    &quot;failFast&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Si es true, lanza error en la primera aserción fallida.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_validate_schema">api_validate_schema</h2>
+<p>Valida el contrato estructural de la última respuesta HTTP frente a un JSON Schema (Draft-07). El esquema puede pasarse como objeto, como string JSON o mediante &#x27;schemaPath&#x27; apuntando a un archivo .json del workspace. Devuelve la lista completa de incumplimientos con la ruta exacta de cada uno, no sólo el primero.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>schema</code></td><td></td><td>no</td><td>JSON Schema como objeto o como string JSON.</td></tr>
+<tr><td><code>schemaPath</code></td><td>string</td><td>no</td><td>Alternativa a &#x27;schema&#x27;: ruta a un archivo .json con el esquema.</td></tr>
+<tr><td><code>jsonPath</code></td><td>string</td><td>no</td><td>Validar sólo una parte de la respuesta (p. ej. &#x27;$.data&#x27;). Por defecto se valida el cuerpo completo.</td></tr>
+<tr><td><code>requestIndex</code></td><td>integer</td><td>no</td><td>Validar una petición concreta del historial.</td></tr>
+<tr><td><code>failFast</code></td><td>boolean</td><td>no</td><td>Si es true, lanza error cuando el esquema no se cumple.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema&quot;: {
+      &quot;description&quot;: &quot;JSON Schema como objeto o como string JSON.&quot;
+    },
+    &quot;schemaPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Alternativa a &#x27;schema&#x27;: ruta a un archivo .json con el esquema.&quot;
+    },
+    &quot;jsonPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Validar sólo una parte de la respuesta (p. ej. &#x27;$.data&#x27;). Por defecto se valida el cuerpo completo.&quot;
+    },
+    &quot;requestIndex&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Validar una petición concreta del historial.&quot;
+    },
+    &quot;failFast&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Si es true, lanza error cuando el esquema no se cumple.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_extract">api_extract</h2>
+<p>Extrae un valor de la respuesta previa mediante JSONPath o expresión regular y lo guarda como variable de sesión, lista para encadenar en la siguiente petición como {{variable}}. Sin &#x27;variableName&#x27; sólo devuelve el valor sin guardarlo. Puede extraer también de una cabecera con &#x27;header&#x27;.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>jsonPath</code></td><td>string</td><td>no</td><td>Expresión JSONPath, p. ej. &#x27;$.data.token&#x27; o &#x27;data.items[0].id&#x27;.</td></tr>
+<tr><td><code>variableName</code></td><td>string</td><td>no</td><td>Nombre de la variable de sesión donde guardar el valor.</td></tr>
+<tr><td><code>regex</code></td><td>string</td><td>no</td><td>Alternativa a jsonPath: expresión regular sobre el cuerpo crudo. Si tiene grupo de captura se usa el grupo 1.</td></tr>
+<tr><td><code>header</code></td><td>string</td><td>no</td><td>Alternativa: extraer el valor de una cabecera de respuesta.</td></tr>
+<tr><td><code>all</code></td><td>boolean</td><td>no</td><td>Devolver todas las coincidencias como array en lugar de la primera.</td></tr>
+<tr><td><code>defaultValue</code></td><td></td><td>no</td><td>Valor a usar si no hay coincidencias (evita el error).</td></tr>
+<tr><td><code>requestIndex</code></td><td>integer</td><td>no</td><td>Extraer de una petición concreta del historial.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;jsonPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Expresión JSONPath, p. ej. &#x27;$.data.token&#x27; o &#x27;data.items[0].id&#x27;.&quot;
+    },
+    &quot;variableName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre de la variable de sesión donde guardar el valor.&quot;
+    },
+    &quot;regex&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Alternativa a jsonPath: expresión regular sobre el cuerpo crudo. Si tiene grupo de captura se usa el grupo 1.&quot;
+    },
+    &quot;header&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Alternativa: extraer el valor de una cabecera de respuesta.&quot;
+    },
+    &quot;all&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devolver todas las coincidencias como array en lugar de la primera.&quot;
+    },
+    &quot;defaultValue&quot;: {
+      &quot;description&quot;: &quot;Valor a usar si no hay coincidencias (evita el error).&quot;
+    },
+    &quot;requestIndex&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Extraer de una petición concreta del historial.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_run_postman">api_run_postman</h2>
+<p>Ejecuta una colección de Postman (.json, Collection v2.1) y devuelve el consolidado de aserciones. Si el binario &#x27;newman&#x27; está instalado se usa como runner (soporte completo de scripts). Si no lo está pero hay Node, se usa un runner nativo que ejecuta las peticiones y evalúa los scripts pre-request/test con un shim de &#x27;pm&#x27;. Sin Node, ejecuta las peticiones y aplica la aserción implícita de estado 2xx. El campo &#x27;runner&#x27; indica siempre el modo real utilizado.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>collectionPath</code></td><td>string</td><td>sí</td><td>Ruta al archivo .json de la colección.</td></tr>
+<tr><td><code>environmentPath</code></td><td>string</td><td>no</td><td>Ruta opcional al environment .json de Postman.</td></tr>
+<tr><td><code>iterationData</code></td><td>string</td><td>no</td><td>Ruta opcional a datos de iteración (.json o .csv).</td></tr>
+<tr><td><code>runner</code></td><td>string</td><td>no</td><td>Forzar runner concreto. Por defecto &#x27;auto&#x27;.</td></tr>
+<tr><td><code>folder</code></td><td>string</td><td>no</td><td>Ejecutar sólo la carpeta indicada de la colección.</td></tr>
+<tr><td><code>bail</code></td><td>boolean</td><td>no</td><td>Detener la ejecución en el primer fallo.</td></tr>
+<tr><td><code>delayMs</code></td><td>integer</td><td>no</td><td>Pausa en ms entre peticiones.</td></tr>
+<tr><td><code>timeoutSeconds</code></td><td>integer</td><td>no</td><td>Timeout global de la ejecución.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;collectionPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta al archivo .json de la colección.&quot;
+    },
+    &quot;environmentPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta opcional al environment .json de Postman.&quot;
+    },
+    &quot;iterationData&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta opcional a datos de iteración (.json o .csv).&quot;
+    },
+    &quot;runner&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;auto&quot;,
+        &quot;newman&quot;,
+        &quot;native&quot;
+      ],
+      &quot;description&quot;: &quot;Forzar runner concreto. Por defecto &#x27;auto&#x27;.&quot;
+    },
+    &quot;folder&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ejecutar sólo la carpeta indicada de la colección.&quot;
+    },
+    &quot;bail&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Detener la ejecución en el primer fallo.&quot;
+    },
+    &quot;delayMs&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Pausa en ms entre peticiones.&quot;
+    },
+    &quot;timeoutSeconds&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Timeout global de la ejecución.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;collectionPath&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_report">api_report</h2>
+<p>Compila el historial de peticiones, tiempos y SLA, validaciones de esquema y aserciones de la sesión en un informe ejecutivo en Markdown con formato BDD (Given/When/Then). Devuelve el Markdown y, si se indica &#x27;outputPath&#x27;, también lo guarda en disco.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>suiteName</code></td><td>string</td><td>sí</td><td>Nombre de la suite de pruebas para la cabecera del informe.</td></tr>
+<tr><td><code>includeResponseBody</code></td><td>boolean</td><td>no</td><td>Incluir el cuerpo de las respuestas en el detalle de cada escenario.</td></tr>
+<tr><td><code>environment</code></td><td>string</td><td>no</td><td>Entorno ejecutado (dev, qa, staging, prod…).</td></tr>
+<tr><td><code>outputPath</code></td><td>string</td><td>no</td><td>Ruta donde guardar el .md. Si se omite sólo se devuelve el texto.</td></tr>
+<tr><td><code>maxBodyChars</code></td><td>integer</td><td>no</td><td>Límite de caracteres por cuerpo incluido (por defecto 2000).</td></tr>
+<tr><td><code>reset</code></td><td>boolean</td><td>no</td><td>Vaciar el historial de la sesión tras generar el informe.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;suiteName&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Nombre de la suite de pruebas para la cabecera del informe.&quot;
+    },
+    &quot;includeResponseBody&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Incluir el cuerpo de las respuestas en el detalle de cada escenario.&quot;
+    },
+    &quot;environment&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Entorno ejecutado (dev, qa, staging, prod…).&quot;
+    },
+    &quot;outputPath&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta donde guardar el .md. Si se omite sólo se devuelve el texto.&quot;
+    },
+    &quot;maxBodyChars&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Límite de caracteres por cuerpo incluido (por defecto 2000).&quot;
+    },
+    &quot;reset&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Vaciar el historial de la sesión tras generar el informe.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;suiteName&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="api_session">api_session</h2>
+<p>Devuelve el estado actual de la sesión de API testing: variables definidas, autenticación (enmascarada), estadísticas y resumen del historial de peticiones. Útil para depurar por qué una {{variable}} no se resuelve o qué respuesta está activa. Con &#x27;reset&#x27;: true limpia la sesión.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>reset</code></td><td>boolean</td><td>no</td><td>Limpiar historial, aserciones y (según flags) variables/auth.</td></tr>
+<tr><td><code>keepVariables</code></td><td>boolean</td><td>no</td><td>Al resetear, conservar las variables de sesión.</td></tr>
+<tr><td><code>keepAuth</code></td><td>boolean</td><td>no</td><td>Al resetear, conservar la autenticación configurada.</td></tr>
+<tr><td><code>includeHistory</code></td><td>boolean</td><td>no</td><td>Incluir el resumen de cada petición del historial.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;reset&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Limpiar historial, aserciones y (según flags) variables/auth.&quot;
+    },
+    &quot;keepVariables&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Al resetear, conservar las variables de sesión.&quot;
+    },
+    &quot;keepAuth&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Al resetear, conservar la autenticación configurada.&quot;
+    },
+    &quot;includeHistory&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Incluir el resumen de cada petición del historial.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="pg_list_schemas">pg_list_schemas</h2>
+<p>[postgres-mcp] List all schemas in the database</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="pg_list_objects">pg_list_objects</h2>
+<p>[postgres-mcp] List objects (tables, views, sequences, extensions) in a schema</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>schema_name</code></td><td>string</td><td>sí</td><td>Schema name</td></tr>
+<tr><td><code>object_type</code></td><td>string</td><td>no</td><td>Object type: table|view|sequence|extension (def. table)</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Schema name&quot;
+    },
+    &quot;object_type&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Object type: table|view|sequence|extension (def. table)&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_name&quot;
+  ],
+  &quot;additionalProperties&quot;: true
+}</pre></details>
+<h2 id="pg_get_object_details">pg_get_object_details</h2>
+<p>[postgres-mcp] Show details (columns, constraints, indexes) of a database object</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>schema_name</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>object_name</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>object_type</code></td><td>string</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;object_name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;object_type&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_name&quot;,
+    &quot;object_name&quot;
+  ],
+  &quot;additionalProperties&quot;: true
+}</pre></details>
+<h2 id="pg_execute_sql">pg_execute_sql</h2>
+<p>[postgres-mcp] Execute a SQL statement (read-only in restricted mode)</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>sql</code></td><td>string</td><td>sí</td><td>SQL to execute</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;sql&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;SQL to execute&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;sql&quot;
+  ],
+  &quot;additionalProperties&quot;: true
+}</pre></details>
+<h2 id="pg_explain_query">pg_explain_query</h2>
+<p>[postgres-mcp] Explain the execution plan for a SQL query (with optional hypothetical indexes)</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>sql</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;sql&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;sql&quot;
+  ],
+  &quot;additionalProperties&quot;: true
+}</pre></details>
+<h2 id="ejecucion_iniciar">ejecucion_iniciar</h2>
+<p>Crea una ejecución del plan de pruebas de una HU. Recibe los escenarios (mismo formato de casos que plan_pruebas_exportar_matriz: title, steps, expectedResults, preconditions) y los DATOS DE PRUEBA que controlan la ejecución (cliente, obligación, radicado...). Devuelve el ejecucion_id para registrar evidencias.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>datos_prueba</code></td><td>object</td><td>no</td><td>Datos de prueba controlados, p. ej. {&quot;cliente_id&quot;: &quot;8001234&quot;, &quot;obligacion&quot;: &quot;1234567&quot;}. Las escrituras en BD solo se permiten sobre estos valores. Opcional si el plan trae &#x27;datos&#x27; por escenario (se registran con ejecucion_preparar_datos).</td></tr>
+<tr><td><code>hu_id</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>no</td><td>ID de la HU en Azure DevOps (toma su título).</td></tr>
+<tr><td><code>titulo_hu</code></td><td>string</td><td>no</td><td>Título de la HU (si no se da hu_id).</td></tr>
+<tr><td><code>casos</code></td><td>array</td><td>no</td><td>Escenarios a ejecutar. Si se omite y hay hu_id, se cargan del plan exportado (&lt;workspace&gt;/&lt;nombre HU&gt;/&lt;id&gt;.json).</td></tr>
+<tr><td><code>ambiente</code></td><td>string</td><td>no</td><td>Ambiente (def. QA).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;datos_prueba&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Datos de prueba controlados, p. ej. {\&quot;cliente_id\&quot;: \&quot;8001234\&quot;, \&quot;obligacion\&quot;: \&quot;1234567\&quot;}. Las escrituras en BD solo se permiten sobre estos valores. Opcional si el plan trae &#x27;datos&#x27; por escenario (se registran con ejecucion_preparar_datos).&quot;
+    },
+    &quot;hu_id&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;ID de la HU en Azure DevOps (toma su título).&quot;
+    },
+    &quot;titulo_hu&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título de la HU (si no se da hu_id).&quot;
+    },
+    &quot;casos&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      },
+      &quot;description&quot;: &quot;Escenarios a ejecutar. Si se omite y hay hu_id, se cargan del plan exportado (&lt;workspace&gt;/&lt;nombre HU&gt;/&lt;id&gt;.json).&quot;
+    },
+    &quot;ambiente&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ambiente (def. QA).&quot;
+    }
+  },
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="ejecucion_estado">ejecucion_estado</h2>
+<p>Muestra escenarios, pasos, evidencias registradas y datos de prueba de una ejecución.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_actualizar_escenario">ejecucion_actualizar_escenario</h2>
+<p>Marca el resultado de un escenario (Exitoso, Fallido, Bloqueado, No ejecutado) con su observación, o ajusta título/pasos/resultado esperado. Con escenario=0 crea un escenario nuevo.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario; 0 para crear uno nuevo.</td></tr>
+<tr><td><code>titulo</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>pasos</code></td><td>array</td><td>no</td><td>Lista completa de pasos.</td></tr>
+<tr><td><code>resultado_esperado</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>precondiciones</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>estado</code></td><td>string</td><td>no</td><td>Exitoso | Fallido | Bloqueado | No ejecutado.</td></tr>
+<tr><td><code>observacion</code></td><td>string</td><td>no</td><td>Resultado obtenido / hallazgo.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario; 0 para crear uno nuevo.&quot;
+    },
+    &quot;titulo&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;pasos&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: &quot;Lista completa de pasos.&quot;
+    },
+    &quot;resultado_esperado&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;precondiciones&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;estado&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Exitoso | Fallido | Bloqueado | No ejecutado.&quot;
+    },
+    &quot;observacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Resultado obtenido / hallazgo.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_registrar_dato_prueba">ejecucion_registrar_dato_prueba</h2>
+<p>Agrega un dato de prueba controlado a la ejecución (p. ej. el id generado por un INSERT) para poder usarlo en escrituras posteriores.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>nombre</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>valor</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;nombre&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;valor&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;nombre&quot;,
+    &quot;valor&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_eliminar_evidencia">ejecucion_eliminar_evidencia</h2>
+<p>Quita una evidencia (EV###) del reporte, p. ej. para repetir una captura.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>evidencia_id</code></td><td>string</td><td>sí</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;evidencia_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;evidencia_id&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_preparar_datos">ejecucion_preparar_datos</h2>
+<p>Resuelve los &#x27;datos&#x27; que el plan dejó para un escenario: ejecuta la consulta &#x27;buscar&#x27; de cada registro (A, B…), toma un candidato que no use otro escenario, lo guarda como evidencia y como dato de prueba, y devuelve la &#x27;consultaControl&#x27; con los valores sustituidos. Si no hay candidato devuelve la receta &#x27;crear&#x27;.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>no</td><td>Paso donde quedan las evidencias (def. 1, el de preparación).</td></tr>
+<tr><td><code>elegir</code></td><td>object</td><td>no</td><td>Fila a tomar por etiqueta (0 = primera), p. ej. {&quot;A&quot;: 2}.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Paso donde quedan las evidencias (def. 1, el de preparación).&quot;
+    },
+    &quot;elegir&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Fila a tomar por etiqueta (0 = primera), p. ej. {\&quot;A\&quot;: 2}.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_verificar_control">ejecucion_verificar_control</h2>
+<p>Ejecuta la &#x27;consultaControl&#x27; del plan para el escenario, con los registros elegidos en ejecucion_preparar_datos ya sustituidos, y la deja como evidencia del paso indicado.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>no</td><td></td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve también la imagen generada en la respuesta.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve también la imagen generada en la respuesta.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_bd_consultar">ejecucion_bd_consultar</h2>
+<p>Ejecuta un SELECT/WITH de solo lectura en la BD (schsaf) y guarda la evidencia como imagen en formato tabla (SQL en la cabecera + resultado, estilo export HTML de DBeaver). Devuelve las filas.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>sql</code></td><td>string</td><td>sí</td><td>SELECT o WITH (una sola sentencia).</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+<tr><td><code>max_filas</code></td><td>integer</td><td>no</td><td>Filas a mostrar (def. 50, máx. 500).</td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve también la imagen generada en la respuesta.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;sql&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;SELECT o WITH (una sola sentencia).&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    },
+    &quot;max_filas&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Filas a mostrar (def. 50, máx. 500).&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve también la imagen generada en la respuesta.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;sql&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_bd_modificar">ejecucion_bd_modificar</h2>
+<p>Escritura CONTROLADA en la BD (schsaf): una sola sentencia INSERT/UPDATE/DELETE que DEBE contener el dato de prueba (en el WHERE para UPDATE/DELETE, en los valores para INSERT) registrado en la ejecución. Cuenta las filas afectadas dentro de la transacción y hace ROLLBACK si superan max_filas. modo=&#x27;simular&#x27; (def.) ejecuta y hace ROLLBACK para revisar el impacto; modo=&#x27;ejecutar&#x27; hace COMMIT y genera las evidencias (antes, filas afectadas con RETURNING y verificación opcional). Todo queda auditado.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>sql</code></td><td>string</td><td>sí</td><td>INSERT, UPDATE o DELETE (una sola sentencia).</td></tr>
+<tr><td><code>dato_prueba</code></td><td>string</td><td>sí</td><td>Valor (o nombre) del dato de prueba que controla la escritura.</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+<tr><td><code>modo</code></td><td>string</td><td>no</td><td>simular (ROLLBACK, def.) | ejecutar (COMMIT).</td></tr>
+<tr><td><code>max_filas</code></td><td>integer</td><td>no</td><td>Máximo de filas afectadas (def. 1, tope 50).</td></tr>
+<tr><td><code>sql_verificacion</code></td><td>string</td><td>no</td><td>SELECT opcional que se ejecuta tras el COMMIT como evidencia.</td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve también la imagen generada en la respuesta.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;sql&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;INSERT, UPDATE o DELETE (una sola sentencia).&quot;
+    },
+    &quot;dato_prueba&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Valor (o nombre) del dato de prueba que controla la escritura.&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    },
+    &quot;modo&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;simular (ROLLBACK, def.) | ejecutar (COMMIT).&quot;
+    },
+    &quot;max_filas&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Máximo de filas afectadas (def. 1, tope 50).&quot;
+    },
+    &quot;sql_verificacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;SELECT opcional que se ejecuta tras el COMMIT como evidencia.&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve también la imagen generada en la respuesta.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;sql&quot;,
+    &quot;dato_prueba&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_api_ejecutar">ejecucion_api_ejecutar</h2>
+<p>Envía una petición HTTP (reutiliza api_request y la sesión de API: variables {{...}}, auth) agregando la cabecera del API de pruebas (Content-type, Authorization: API Key, api-key). Guarda la evidencia como imagen de consola con el curl, el status y la respuesta. Devuelve status y body para validar.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>method</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>url</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+<tr><td><code>headers</code></td><td>object</td><td>no</td><td>Cabeceras extra (sobrescriben las por defecto).</td></tr>
+<tr><td><code>queryParams</code></td><td>object</td><td>no</td><td></td></tr>
+<tr><td><code>body</code></td><td></td><td>no</td><td>Body (objeto JSON, campos de formulario o texto).</td></tr>
+<tr><td><code>bodyType</code></td><td>string</td><td>no</td><td>json | form-data | x-www-form-urlencoded | raw.</td></tr>
+<tr><td><code>usar_cabecera_api</code></td><td>boolean</td><td>no</td><td>Agrega la cabecera api-key configurada (def. true).</td></tr>
+<tr><td><code>mostrar_secretos</code></td><td>boolean</td><td>no</td><td>Muestra la api-key sin enmascarar en la imagen (def. false).</td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve también la imagen generada en la respuesta.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;method&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;url&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    },
+    &quot;headers&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;Cabeceras extra (sobrescriben las por defecto).&quot;
+    },
+    &quot;queryParams&quot;: {
+      &quot;type&quot;: &quot;object&quot;
+    },
+    &quot;body&quot;: {
+      &quot;description&quot;: &quot;Body (objeto JSON, campos de formulario o texto).&quot;
+    },
+    &quot;bodyType&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;json | form-data | x-www-form-urlencoded | raw.&quot;
+    },
+    &quot;usar_cabecera_api&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Agrega la cabecera api-key configurada (def. true).&quot;
+    },
+    &quot;mostrar_secretos&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Muestra la api-key sin enmascarar en la imagen (def. false).&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve también la imagen generada en la respuesta.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;method&quot;,
+    &quot;url&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_api_evidencia">ejecucion_api_evidencia</h2>
+<p>Genera la imagen de consola (curl + respuesta) de una petición del historial de la sesión de API (la última por defecto), p. ej. tras api_request o api_run_postman.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+<tr><td><code>indice_historial</code></td><td>integer</td><td>no</td><td>Índice de la petición en el historial (def. la última).</td></tr>
+<tr><td><code>mostrar_secretos</code></td><td>boolean</td><td>no</td><td></td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve también la imagen generada en la respuesta.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    },
+    &quot;indice_historial&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Índice de la petición en el historial (def. la última).&quot;
+    },
+    &quot;mostrar_secretos&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve también la imagen generada en la respuesta.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_navegador_login">ejecucion_navegador_login</h2>
+<p>Abre la URL de la aplicación en el navegador visible y espera a que el usuario complete el login de Microsoft (Entra ID / MFA). Con MCP_BROWSER_USER_DATA_DIR el perfil es persistente y el login se conserva entre reinicios. Si devuelve &#x27;esperando_login&#x27;, pide al usuario terminar el login y vuelve a llamarla.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>url</code></td><td>string</td><td>sí</td><td>URL de la aplicación a probar.</td></tr>
+<tr><td><code>esperar_segundos</code></td><td>integer</td><td>no</td><td>Espera máxima por llamada (def. 120).</td></tr>
+<tr><td><code>texto_exito</code></td><td>string</td><td>no</td><td>Texto visible que confirma que la app cargó (opcional).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;url&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;URL de la aplicación a probar.&quot;
+    },
+    &quot;esperar_segundos&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Espera máxima por llamada (def. 120).&quot;
+    },
+    &quot;texto_exito&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto visible que confirma que la app cargó (opcional).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;url&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_navegador_captura">ejecucion_navegador_captura</h2>
+<p>Toma la captura de la pantalla actual del navegador (sesión de las tools browser_*) como evidencia del paso, resaltando en rojo los elementos indicados (refs del snapshot o selectores).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+<tr><td><code>resaltar</code></td><td>array</td><td>no</td><td>Elementos a recuadrar en rojo: refs (e12) o selectores CSS/text=.</td></tr>
+<tr><td><code>pagina_completa</code></td><td>boolean</td><td>no</td><td>Captura toda la página con scroll (def. false).</td></tr>
+<tr><td><code>devolver_imagen</code></td><td>boolean</td><td>no</td><td>Devuelve la captura en la respuesta (def. true).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    },
+    &quot;resaltar&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;description&quot;: &quot;Elementos a recuadrar en rojo: refs (e12) o selectores CSS/text=.&quot;
+    },
+    &quot;pagina_completa&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Captura toda la página con scroll (def. false).&quot;
+    },
+    &quot;devolver_imagen&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Devuelve la captura en la respuesta (def. true).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_agregar_evidencia">ejecucion_agregar_evidencia</h2>
+<p>Agrega como evidencia una imagen PNG/JPEG existente (p. ej. de browser_take_screenshot).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>escenario</code></td><td>integer</td><td>sí</td><td>Número del escenario (1..N).</td></tr>
+<tr><td><code>paso</code></td><td>[&#x27;integer&#x27;, &#x27;string&#x27;]</td><td>sí</td><td>Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.</td></tr>
+<tr><td><code>archivo</code></td><td>string</td><td>sí</td><td>Ruta de la imagen.</td></tr>
+<tr><td><code>etiqueta</code></td><td>string</td><td>sí</td><td>Título corto que aparece sobre la imagen en el reporte.</td></tr>
+<tr><td><code>explicacion</code></td><td>string</td><td>sí</td><td>Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;escenario&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Número del escenario (1..N).&quot;
+    },
+    &quot;paso&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;string&quot;
+      ],
+      &quot;description&quot;: &quot;Número del paso (1..N) o su descripción; un texto nuevo agrega el paso.&quot;
+    },
+    &quot;archivo&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta de la imagen.&quot;
+    },
+    &quot;etiqueta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Título corto que aparece sobre la imagen en el reporte.&quot;
+    },
+    &quot;explicacion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Qué muestra la imagen y qué se valida con ella (aparece bajo la imagen).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;,
+    &quot;escenario&quot;,
+    &quot;paso&quot;,
+    &quot;archivo&quot;,
+    &quot;etiqueta&quot;,
+    &quot;explicacion&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_finalizar">ejecucion_finalizar</h2>
+<p>Genera el reporte &#x27;Ejecución - &lt;HU&gt;&#x27; en .docx (formato de la plantilla: índice con enlaces, tabla Paso a paso / Evidencias, cada imagen con su etiqueta y explicación, resultado esperado y obtenido) y en .pdf. Devuelve las URLs de descarga y adjunta los archivos.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>formato</code></td><td>string</td><td>no</td><td>docx | pdf | ambos (def.).</td></tr>
+<tr><td><code>incluir_archivo</code></td><td>boolean</td><td>no</td><td>Adjunta los archivos en base64 (def. false: basta la ruta del archivo).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;formato&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;docx | pdf | ambos (def.).&quot;
+    },
+    &quot;incluir_archivo&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Adjunta los archivos en base64 (def. false: basta la ruta del archivo).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;
+  ]
+}</pre></details>
+<h2 id="ejecucion_bugs">ejecucion_bugs</h2>
+<p>Genera &#x27;Bugs - &lt;HU&gt;&#x27; (.docx y .pdf, misma plantilla del reporte) en la carpeta de la ejecución. Cada bug: título, severidad, escenario(s), datos, pasos para reproducir con las evidencias EV de la ejecución (imágenes incrustadas), resultado esperado (criterio) y resultado obtenido. Valida que cada EV exista. Guarda los bugs en bugs.json; llamarla sin &#x27;bugs&#x27; regenera el reporte desde ese archivo. Usa tipo=&#x27;observacion&#x27; para dudas al funcional (OBS-NN) que no son bugs.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ejecucion_id</code></td><td>string</td><td>sí</td><td>ID devuelto por ejecucion_iniciar.</td></tr>
+<tr><td><code>bugs</code></td><td>array</td><td>no</td><td>[{titulo, severidad (Alta|Media|Baja), escenarios (&#x27;4 y 8&#x27;), datos (NIT, CxC...), pasos: [{descripcion, evidencias: [&#x27;EV042&#x27;,&#x27;EV043&#x27;]}], resultado_esperado, resultado_obtenido, tipo? (&#x27;bug&#x27;|&#x27;observacion&#x27;)}]</td></tr>
+<tr><td><code>formato</code></td><td>string</td><td>no</td><td>docx | pdf | ambos (def.).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ejecucion_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;ID devuelto por ejecucion_iniciar.&quot;
+    },
+    &quot;bugs&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;description&quot;: &quot;[{titulo, severidad (Alta|Media|Baja), escenarios (&#x27;4 y 8&#x27;), datos (NIT, CxC...), pasos: [{descripcion, evidencias: [&#x27;EV042&#x27;,&#x27;EV043&#x27;]}], resultado_esperado, resultado_obtenido, tipo? (&#x27;bug&#x27;|&#x27;observacion&#x27;)}]&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;
+      }
+    },
+    &quot;formato&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;docx | pdf | ambos (def.).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ejecucion_id&quot;
+  ]
+}</pre></details>
+<h2 id="saf_buscar_pantalla">saf_buscar_pantalla</h2>
+<p>Busca en el CÓDIGO del front de SAF las pantallas que corresponden a un texto (funcionalidad, menú, etiqueta de campo o botón). Devuelve la ruta (URL relativa), el menú y los parámetros de la ruta.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>texto</code></td><td>string</td><td>sí</td><td>p. ej. &#x27;aplicar ajuste mantenimiento&#x27;, &#x27;tasa de cambio&#x27;.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;texto&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;p. ej. &#x27;aplicar ajuste mantenimiento&#x27;, &#x27;tasa de cambio&#x27;.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;texto&quot;
+  ]
+}</pre></details>
+<h2 id="saf_pantalla">saf_pantalla</h2>
+<p>Mapa de una pantalla de SAF sacado del código fuente: componentes (con archivos .ts/.html y la API que cargan al abrir), campos (tipo de widget, etiqueta, formControlName/componentId/id/data-testid, localizador recomendado, opciones de radios, si es condicional o se repite por fila), botones y modales (texto, método y la API que llaman: método, ruta y microservicio), tablas (columnas) y títulos. Úsalo ANTES de interactuar.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ruta</code></td><td>string</td><td>sí</td><td>Ruta (p. ej. &#x27;ajustes-obligaciones/aplicar-ajuste&#x27;) o clase del componente.</td></tr>
+<tr><td><code>incluir_condicionales</code></td><td>boolean</td><td>no</td><td>Incluye elementos con *ngIf/@if (def. true).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ruta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta (p. ej. &#x27;ajustes-obligaciones/aplicar-ajuste&#x27;) o clase del componente.&quot;
+    },
+    &quot;incluir_condicionales&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Incluye elementos con *ngIf/@if (def. true).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ruta&quot;
+  ]
+}</pre></details>
+<h2 id="saf_ir">saf_ir</h2>
+<p>Abre una pantalla de SAF (https://saf-qa.apps.ambientesbc.com/) por su ruta, espera a que terminen los loaders del Design System y devuelve el estado de la pantalla. Si Microsoft pide login devuelve &#x27;requiere_login&#x27;. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref &#x27;sN&#x27; (selector [data-saf-ref=&quot;sN&quot;], útil en browser_* y en ejecucion_navegador_captura.resaltar).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>ruta</code></td><td>string</td><td>sí</td><td>Ruta relativa (de saf_buscar_pantalla) o URL completa.</td></tr>
+<tr><td><code>esperar_segundos</code></td><td>integer</td><td>no</td><td>Espera máxima de carga (def. 30).</td></tr>
+<tr><td><code>limpio</code></td><td>boolean</td><td>no</td><td>Recarga la app para que el formulario arranque vacío (el store conserva valores de escenarios anteriores). Úsalo al iniciar cada escenario. Def. false.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;ruta&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Ruta relativa (de saf_buscar_pantalla) o URL completa.&quot;
+    },
+    &quot;esperar_segundos&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Espera máxima de carga (def. 30).&quot;
+    },
+    &quot;limpio&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Recarga la app para que el formulario arranque vacío (el store conserva valores de escenarios anteriores). Úsalo al iniciar cada escenario. Def. false.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;ruta&quot;
+  ]
+}</pre></details>
+<h2 id="saf_estado">saf_estado</h2>
+<p>Snapshot pensado para SAF: campos visibles con etiqueta, tipo (select, fecha, texto...), valor actual y errores de validación; botones (y si están deshabilitados); modal activo con sus botones; alertas/toasts; tablas con columnas y primeras filas; y si hay un loader activo. Reemplaza a browser_snapshot en SAF. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref &#x27;sN&#x27; (selector [data-saf-ref=&quot;sN&quot;], útil en browser_* y en ejecucion_navegador_captura.resaltar).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>solo_modal</code></td><td>boolean</td><td>no</td><td>Solo el contenido del modal activo.</td></tr>
+<tr><td><code>max_filas</code></td><td>integer</td><td>no</td><td>Filas por tabla (def. 5).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;solo_modal&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Solo el contenido del modal activo.&quot;
+    },
+    &quot;max_filas&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Filas por tabla (def. 5).&quot;
+    }
+  },
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="saf_llenar">saf_llenar</h2>
+<p>Llena varios campos de un formulario de SAF manejando cada widget del Design System: bc-input-select (abre la lista y elige la opción por texto; lista de valores si es múltiple), bc-input-date (AAAA-MM-DD o DD/MM/AAAA), autocompletar, texto, checkbox/switch, radio y archivos. Identifica cada campo por formControlName, componentId, id, data-testid, etiqueta visible, encabezado de columna o ref. En autocompletar elige la sugerencia exacta (el valor como primer token) y falla si ninguna coincide. Verifica cada campo: si el valor que quedó no es el pedido (máscara, reseteo) o Angular lo marca inválido, reintenta una vez y lo informa en &#x27;avisos&#x27;. Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref &#x27;sN&#x27; (selector [data-saf-ref=&quot;sN&quot;], útil en browser_* y en ejecucion_navegador_captura.resaltar).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>campos</code></td><td>object</td><td>sí</td><td>{clave: valor}, p. ej. {&quot;categoryMaintenance&quot;: &quot;Comisiones&quot;, &quot;Fecha mantenimiento&quot;: &quot;2026-10-30&quot;}.</td></tr>
+<tr><td><code>fila</code></td><td>string</td><td>no</td><td>Texto de la fila (p. ej. el Id &#x27;354752&#x27;) para campos repetidos por fila en tablas o pop-ups; la clave puede ser el encabezado de la columna (p. ej. {&quot;Valor&quot;: &quot;100000&quot;}).</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;campos&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;description&quot;: &quot;{clave: valor}, p. ej. {\&quot;categoryMaintenance\&quot;: \&quot;Comisiones\&quot;, \&quot;Fecha mantenimiento\&quot;: \&quot;2026-10-30\&quot;}.&quot;
+    },
+    &quot;fila&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto de la fila (p. ej. el Id &#x27;354752&#x27;) para campos repetidos por fila en tablas o pop-ups; la clave puede ser el encabezado de la columna (p. ej. {\&quot;Valor\&quot;: \&quot;100000\&quot;}).&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;campos&quot;
+  ]
+}</pre></details>
+<h2 id="saf_click">saf_click</h2>
+<p>Hace clic en un botón, enlace, pestaña u opción por texto visible, id, data-testid o ref (prioriza el modal abierto), espera los loaders y devuelve el nuevo estado (navegación, modal, alertas). En &#x27;api&#x27; compara las llamadas que hizo el navegador con las que el código del front dice que dispara ese botón (método, ruta, status): úsalo como verificación del paso. En &#x27;verificacion&#x27; dice si ocurrió la navegación que indica el código o si el clic no tuvo efecto (&#x27;aviso&#x27; + camposInvalidos): con aviso, el paso NO está hecho. Si el objetivo es un campo select (ref, formControlName o etiqueta), lo despliega y devuelve sus opciones (para capturar la lista como evidencia). Usa la misma ventana/sesión que las browser_* y marca cada elemento con una ref &#x27;sN&#x27; (selector [data-saf-ref=&quot;sN&quot;], útil en browser_* y en ejecucion_navegador_captura.resaltar).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>objetivo</code></td><td>string</td><td>sí</td><td>Texto del botón (p. ej. &#x27;Continuar&#x27;), id, data-testid, ref sN o un campo select a desplegar.</td></tr>
+<tr><td><code>en_modal</code></td><td>boolean</td><td>no</td><td>Buscar solo dentro del modal activo.</td></tr>
+<tr><td><code>esperar_segundos</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;objetivo&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto del botón (p. ej. &#x27;Continuar&#x27;), id, data-testid, ref sN o un campo select a desplegar.&quot;
+    },
+    &quot;en_modal&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;Buscar solo dentro del modal activo.&quot;
+    },
+    &quot;esperar_segundos&quot;: {
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;objetivo&quot;
+  ]
+}</pre></details>
+<h2 id="saf_modal">saf_modal</h2>
+<p>Lee el modal activo (título, texto, campos, botones) y, si se indica &#x27;boton&#x27;, lo pulsa.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>boton</code></td><td>string</td><td>no</td><td>Texto del botón a pulsar (p. ej. &#x27;Confirmar&#x27;). Vacío = solo leer.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;boton&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto del botón a pulsar (p. ej. &#x27;Confirmar&#x27;). Vacío = solo leer.&quot;
+    }
+  },
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="saf_tabla">saf_tabla</h2>
+<p>Lee una tabla visible (columnas y filas) y opcionalmente opera sobre la fila que contenga un texto: accion=&#x27;seleccionar&#x27; | &#x27;desmarcar&#x27; marca o desmarca su casilla (y lo verifica); la fila se busca primero por celda exacta; otra acción hace clic en ese botón/ícono de la fila o en esa opción de su menú desplegable (bc-table-dropdown).</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>tabla</code></td><td>string</td><td>no</td><td>id, ref o texto de una columna para elegir la tabla.</td></tr>
+<tr><td><code>fila</code></td><td>string</td><td>no</td><td>Texto que identifica la fila (p. ej. el número de obligación).</td></tr>
+<tr><td><code>accion</code></td><td>string</td><td>no</td><td>seleccionar | texto de la acción (p. ej. &#x27;Ver detalle&#x27;).</td></tr>
+<tr><td><code>indice</code></td><td>integer</td><td>no</td><td>Índice de la tabla visible si no se da &#x27;tabla&#x27; (def. 0).</td></tr>
+<tr><td><code>max_filas</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;tabla&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;id, ref o texto de una columna para elegir la tabla.&quot;
+    },
+    &quot;fila&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Texto que identifica la fila (p. ej. el número de obligación).&quot;
+    },
+    &quot;accion&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;seleccionar | texto de la acción (p. ej. &#x27;Ver detalle&#x27;).&quot;
+    },
+    &quot;indice&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;description&quot;: &quot;Índice de la tabla visible si no se da &#x27;tabla&#x27; (def. 0).&quot;
+    },
+    &quot;max_filas&quot;: {
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="saf_inspeccionar">saf_inspeccionar</h2>
+<p>Devuelve el HTML real (outerHTML) y los ancestros de un elemento por ref, selector, clave de campo o texto de botón, para resolver widgets que las otras tools no manejen.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>objetivo</code></td><td>string</td><td>sí</td><td></td></tr>
+<tr><td><code>max_caracteres</code></td><td>integer</td><td>no</td><td></td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;objetivo&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;max_caracteres&quot;: {
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;objetivo&quot;
+  ]
+}</pre></details>
+<h2 id="saf_reindexar">saf_reindexar</h2>
+<p>Reconstruye el índice de rutas y componentes desde el repositorio del front (se hace solo cuando cambia el commit; úsalo tras un git pull).</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;required&quot;: []
+}</pre></details>
+<h2 id="credenciales_definir">credenciales_definir</h2>
+<p>Entrega al servidor las credenciales. Por defecto solo en memoria (se pierden al reiniciar); con guardar=true quedan en el .env del servidor y no hay que volver a darlas. Antes de pedirlas al usuario mira credenciales_estado: si ya están definidas no las pidas. Llámala al conectarte, antes de usar plan_pruebas_* / saf_* (azure_devops_pat), pg_* / ejecucion_bd_* (database_uri, postgresql://usuario:clave@host:5432/BD?options=-csearch_path%3Dschsaf,public) o ejecucion_api_* (ejecucion_api_key). Solo se cambian los campos que envíes; &#x27;-&#x27; borra uno.</p>
+<table><tr><th>Parámetro</th><th>Tipo</th><th>Requerido</th><th>Descripción</th></tr>
+<tr><td><code>azure_devops_pat</code></td><td>string</td><td>no</td><td>Personal Access Token de Azure DevOps (lectura de código y work items).</td></tr>
+<tr><td><code>database_uri</code></td><td>string</td><td>no</td><td>URI postgresql:// de la BD QA de SAF.</td></tr>
+<tr><td><code>ejecucion_api_key</code></td><td>string</td><td>no</td><td>API key de los microservicios SAF para ejecucion_api_*.</td></tr>
+<tr><td><code>guardar</code></td><td>boolean</td><td>no</td><td>true: además las guarda en el .env del servidor (persisten tras reinicios). Por defecto solo memoria.</td></tr>
+</table>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;azure_devops_pat&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;Personal Access Token de Azure DevOps (lectura de código y work items).&quot;
+    },
+    &quot;database_uri&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;URI postgresql:// de la BD QA de SAF.&quot;
+    },
+    &quot;ejecucion_api_key&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;API key de los microservicios SAF para ejecucion_api_*.&quot;
+    },
+    &quot;guardar&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;,
+      &quot;description&quot;: &quot;true: además las guarda en el .env del servidor (persisten tras reinicios). Por defecto solo memoria.&quot;
+    }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="credenciales_estado">credenciales_estado</h2>
+<p>Qué credenciales tiene el servidor en memoria (sin mostrar su valor).</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+<h2 id="credenciales_olvidar">credenciales_olvidar</h2>
+<p>Borra todas las credenciales, de memoria y del .env del servidor.</p>
+<p><em>Sin parámetros.</em></p>
+<details><summary>inputSchema (JSON)</summary><pre>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {},
+  &quot;additionalProperties&quot;: false
+}</pre></details>
+</body>
+</html>
